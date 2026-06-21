@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust &amp; Safety — Policy Enforcement Ops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg: #0E1318;
+    --bg-grain: #10161C;
+    --surface: #161D24;
+    --surface-raised: #1C262F;
+    --hairline: #2A3540;
+    --hairline-soft: #202A33;
+    --text-primary: #E8ECEF;
+    --text-secondary: #8D9AA6;
+    --text-tertiary: #5C6A75;
+    --teal: #4FB6AC;
+    --teal-soft: #2A3F3D;
+    --teal-bright: #7FD8CE;
+    --amber: #E3A23E;
+    --amber-soft: #3A301F;
+    --red: #D8584A;
+    --red-soft: #3A2420;
+    --red-bright: #F0786A;
+    font-size: 16px;
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--teal-soft); color: var(--teal-bright); }
+
+  .wrap{
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px 80px;
+  }
+
+  /* ---------- Stamp bar ---------- */
+  .stampbar{
+    display:flex; flex-wrap:wrap; align-items:center; gap: 10px 18px;
+    padding: 10px 16px;
+    border: 1px solid var(--hairline);
+    border-radius: 6px;
+    background: linear-gradient(180deg, var(--surface), var(--bg-grain));
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+  }
+  .stampbar b{ color: var(--text-primary); font-weight:500; }
+  .stampbar .dot{ width:6px; height:6px; border-radius:50%; background: var(--teal); display:inline-block; box-shadow: 0 0 8px var(--teal); }
+  .stampbar .sep{ color: var(--hairline); }
+  .stampbar .tag{
+    margin-left:auto;
+    border:1px solid var(--hairline);
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: var(--text-tertiary);
+  }
+
+  /* ---------- Header ---------- */
+  header.hero{ margin-bottom: 36px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal-bright);
+    margin: 0 0 10px;
+  }
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.12;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+  .hero-sub{
+    color: var(--text-secondary);
+    font-size: 15.5px;
+    line-height: 1.65;
+    max-width: 720px;
+    margin: 0;
+  }
+  .hero-sub strong{ color: var(--text-primary); font-weight: 500; }
+
+  /* ---------- Section labels ---------- */
+  .section-label{
+    display:flex; align-items:baseline; gap:10px;
+    margin: 48px 0 16px;
+  }
+  .section-label .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+  .section-label h2{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    margin:0;
+    letter-spacing: -0.005em;
+  }
+  .section-label .desc{
+    color: var(--text-tertiary);
+    font-size: 13px;
+    margin-left: 4px;
+  }
+
+  /* ---------- KPI strip ---------- */
+  .kpi-grid{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .kpi-card{
+    background: var(--surface);
+    padding: 18px 16px 14px;
+    min-height: 138px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .kpi-label{
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 10px;
+    min-height: 28px;
+  }
+  .kpi-value-row{ display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+  .kpi-value{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .kpi-delta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .kpi-delta.up-good{ color:#9FE0B8; background: #1E3A2A; }
+  .kpi-delta.down-good{ color:#9FE0B8; background: #1E3A2A; }
+  .kpi-delta.up-bad{ color: var(--red-bright); background: var(--red-soft); }
+  .kpi-delta.down-bad{ color: var(--red-bright); background: var(--red-soft); }
+  .kpi-spark{ margin-top: 10px; height: 30px; }
+  .kpi-spark svg{ width:100%; height:100%; display:block; }
+
+  /* ---------- Panels ---------- */
+  .panel{
+    background: var(--surface);
+    border: 1px solid var(--hairline);
+    border-radius: 8px;
+    padding: 22px 22px 18px;
+  }
+  .panel + .panel{ margin-top: 18px; }
+  .panel-head{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    margin-bottom: 16px; gap: 16px; flex-wrap: wrap;
+  }
+  .panel-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .panel-sub{ font-size: 12.5px; color: var(--text-tertiary); margin:0; }
+  .legend{ display:flex; gap:14px; flex-wrap:wrap; }
+  .legend-item{ display:flex; align-items:center; gap:6px; font-size: 11.5px; color: var(--text-secondary); font-family:'IBM Plex Mono', monospace; }
+  .legend-swatch{ width:9px; height:9px; border-radius:2px; }
+
+  .chart-box{ position:relative; height: 280px; }
+
+  /* ---------- Heatmap ---------- */
+  .heatmap{
+    display:grid;
+    grid-template-columns: 130px repeat(6, 1fr);
+    gap: 4px;
+    font-size: 11.5px;
+  }
+  .heatmap .hcell{
+    padding: 10px 8px;
+    border-radius: 4px;
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    color: var(--text-primary);
+  }
+  .heatmap .hrow-label{
+    display:flex; align-items:center;
+    color: var(--text-secondary);
+    font-family:'Inter', sans-serif;
+    font-size: 12.5px;
+    padding-left: 2px;
+  }
+  .heatmap .hcol-label{
+    color: var(--text-tertiary);
+    font-size: 10.5px;
+    text-align:center;
+    padding-bottom: 4px;
+    line-height:1.2;
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+
+  /* ---------- Anomaly case file ---------- */
+  .casefile{
+    border: 1px solid #4A3324;
+    background: linear-gradient(180deg, #1B1611, var(--surface) 60px);
+    border-radius: 10px;
+    padding: 0;
+    overflow:hidden;
+  }
+  .casefile-alert{
+    display:flex; align-items:center; gap: 12px;
+    padding: 14px 22px;
+    background: var(--amber-soft);
+    border-bottom: 1px solid #4A3324;
+  }
+  .casefile-alert .siren{
+    width: 9px; height:9px; border-radius:50%;
+    background: var(--amber);
+    box-shadow: 0 0 10px var(--amber);
+    flex-shrink:0;
+  }
+  .casefile-alert .alert-text{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: #F0CD8E;
+    letter-spacing: 0.02em;
+  }
+  .casefile-alert .alert-text b{ color: #FCE3B0; }
+  .casefile-body{ padding: 24px 26px 26px; }
+
+  .evidence-steps{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .evidence-step{
+    background: var(--surface-raised);
+    border: 1px solid var(--hairline-soft);
+    border-radius: 8px;
+    padding: 16px 16px 14px;
+  }
+  .evidence-step .estep-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .evidence-step h4{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 14px;
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+  .evidence-step p{ font-size: 12.5px; color: var(--text-secondary); line-height:1.55; margin: 0 0 10px; }
+
+  .stat-line{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--hairline-soft);
+  }
+  .stat-line:last-child{ border-bottom:none; }
+  .stat-line .v{ color: var(--text-primary); font-weight:500; }
+  .stat-line .v.hot{ color: var(--red-bright); }
+
+  .rca-bar-row{ margin-bottom: 9px; }
+  .rca-bar-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    display:flex; justify-content:space-between;
+    margin-bottom: 3px;
+  }
+  .rca-bar-track{ height: 7px; background: var(--bg); border-radius: 4px; overflow:hidden; }
+  .rca-bar-fill{ height: 100%; background: linear-gradient(90deg, var(--amber), var(--red)); border-radius: 4px; }
+
+  .precision-compare{ display:flex; gap: 14px; margin-top: 4px; }
+  .precision-card{
+    flex:1; background: var(--bg); border:1px solid var(--hairline-soft);
+    border-radius: 6px; padding: 10px 12px;
+  }
+  .precision-card .pc-label{ font-size: 10.5px; color: var(--text-tertiary); text-transform:uppercase; letter-spacing:0.04em; }
+  .precision-card .pc-value{ font-family:'Space Grotesk', sans-serif; font-size: 22px; font-weight:600; margin-top:4px; }
+  .precision-card.low .pc-value{ color: var(--teal-bright); }
+  .precision-card.high .pc-value{ color: var(--text-secondary); }
+
+  .verdict{
+    margin-top: 22px;
+    padding: 18px 20px;
+    border-radius: 8px;
+    background: var(--teal-soft);
+    border: 1px solid #335753;
+  }
+  .verdict .v-label{
+    font-family:'IBM Plex Mono', monospace; font-size: 11px; letter-spacing:0.06em;
+    color: var(--teal-bright); text-transform:uppercase; margin-bottom:8px;
+  }
+  .verdict p{ margin:0; font-size: 13.5px; line-height:1.65; color: #D7EFEC; }
+  .verdict p + p{ margin-top:10px; }
+  .verdict strong{ color: #fff; }
+
+  /* ---------- Methodology / footer ---------- */
+  .meta-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+  }
+  .meta-block h5{
+    font-family:'Space Grotesk', sans-serif; font-size: 13px; margin:0 0 8px; color: var(--text-primary);
+  }
+  .meta-block p, .meta-block li{ font-size: 12.5px; color: var(--text-secondary); line-height:1.6; }
+  .meta-block ul{ margin:0; padding-left: 16px; }
+
+  footer{
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--hairline);
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+    font-family:'IBM Plex Mono', monospace;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  @media (max-width: 920px){
+    .kpi-grid{ grid-template-columns: repeat(2, 1fr); }
+    .evidence-steps{ grid-template-columns: 1fr; }
+    .meta-grid{ grid-template-columns: 1fr; }
+    .heatmap{ grid-template-columns: 90px repeat(6, 1fr); font-size:10px; }
+    .precision-compare{ flex-direction:column; }
+  }
+  @media (max-width: 600px){
+    .kpi-grid{ grid-template-columns: 1fr 1fr; }
+    .heatmap{ display:none; }
+    .heatmap-mobile-note{ display:block !important; }
+  }
+  .heatmap-mobile-note{ display:none; color: var(--text-tertiary); font-size:12.5px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="stampbar">
+    <span><span class="dot"></span> <b>CASE #TSO-2026-0418</b></span>
+    <span class="sep">·</span>
+    <span>STATUS: <b>ROOT CAUSE IDENTIFIED</b></span>
+    <span class="sep">·</span>
+    <span>WINDOW: 2026-02-23 → 2026-06-14 (16 wks)</span>
+    <span class="tag">SYNTHETIC DATA — PORTFOLIO PROJECT</span>
+  </div>
+
+  <header class="hero">
+    <p class="eyebrow">Policy Enforcement Analytics · Trust &amp; Safety</p>
+    <h1>Did the Misinformation spike in India mean our<br>classifier broke — or did an attack happen?</h1>
+    <p class="hero-sub">
+      A working metrics framework, anomaly detector, and root-cause analysis (RCA) built around
+      a real question Trust &amp; Safety analysts get asked weekly: <strong>a number moved —
+      is it us, or is it them?</strong> Built as a personal project to find out — metrics design,
+      anomaly detection, and a full root-cause investigation, end to end.
+    </p>
+  </header>
+
+  <!-- ============ SECTION 1: KPI FRAMEWORK ============ -->
+  <div class="section-label">
+    <span class="num">01</span>
+    <h2>Top-line metrics framework</h2>
+    <span class="desc">Weekly, vs. prior week</span>
+  </div>
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <!-- ============ SECTION 2: TREND + HEATMAP ============ -->
+  <div class="section-label">
+    <span class="num">02</span>
+    <h2>Enforcement volume, by region</h2>
+    <span class="desc">16-week trend · anomaly week flagged</span>
+  </div>
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <p class="panel-title">Weekly removals, stacked by region</p>
+        <p class="panel-sub">Each band is a region's removed-video volume per week. Watch the India band in week of Apr 20.</p>
+      </div>
+      <div class="legend" id="trendLegend"></div>
+    </div>
+    <div class="chart-box"><canvas id="trendChart"></canvas></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <p class="panel-title">Region × policy category, last 4 weeks</p>
+        <p class="panel-sub">Removed-video volume. Darker = higher volume. Used to spot where measurement attention is needed next.</p>
+      </div>
+    </div>
+    <div class="heatmap" id="heatmap"></div>
+    <p class="heatmap-mobile-note">Heatmap hidden on narrow screens — view on a wider screen for the region × category matrix.</p>
+  </div>
+
+  <!-- ============ SECTION 3: RCA CASE FILE ============ -->
+  <div class="section-label">
+    <span class="num">03</span>
+    <h2>Root cause analysis</h2>
+    <span class="desc">The anomaly, disentangled</span>
+  </div>
+
+  <div class="casefile">
+    <div class="casefile-alert">
+      <span class="siren"></span>
+      <span class="alert-text" id="alertText">Loading anomaly scan…</span>
+    </div>
+    <div class="casefile-body">
+      <div class="evidence-steps">
+
+        <div class="evidence-step">
+          <div class="estep-num">STEP 01 — DETECT</div>
+          <h4>Scan for WoW breaches</h4>
+          <p>A SQL window function compares each region × category cell to its own prior week. Threshold: flag anything up more than 75% WoW.</p>
+          <div id="detectStats"></div>
+        </div>
+
+        <div class="evidence-step">
+          <div class="estep-num">STEP 02 — DISENTANGLE</div>
+          <h4>Which cohort drove it?</h4>
+          <p>Breaking the spike down by device, channel age, and detection source — the confounding variables — isolates the true driver.</p>
+          <div id="rcaBars"></div>
+        </div>
+
+        <div class="evidence-step">
+          <div class="estep-num">STEP 03 — VALIDATE</div>
+          <h4>Real attack, or false positives?</h4>
+          <p>If the spike were a classifier precision bug, the appeal overturn rate would <em>rise</em>. Instead, it fell.</p>
+          <div class="precision-compare" id="precisionCompare"></div>
+        </div>
+
+      </div>
+
+      <div class="verdict">
+        <div class="v-label">Verdict &amp; recommendation</div>
+        <p id="verdictP1"></p>
+        <p id="verdictP2"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 4: METHODOLOGY ============ -->
+  <div class="section-label">
+    <span class="num">04</span>
+    <h2>Methodology &amp; scope</h2>
+  </div>
+  <div class="panel">
+    <div class="meta-grid">
+      <div class="meta-block">
+        <h5>What's real vs. illustrative</h5>
+        <p>The enforcement log is synthetic data generated to mirror the shape of a real T&amp;S
+        dataset (region × policy category × device × channel age × detection source, ~78K rows
+        over 16 weeks). The anomaly is deliberately engineered so the RCA has a real, findable answer.</p>
+      </div>
+      <div class="meta-block">
+        <h5>What this demonstrates</h5>
+        <ul>
+          <li>Designing a metrics framework with both volume and precision proxies</li>
+          <li>SQL-based anomaly detection with window functions</li>
+          <li>Multi-variable RCA to disentangle confounds</li>
+          <li>Executive-ready narrative, not just a chart dump</li>
+        </ul>
+      </div>
+      <div class="meta-block">
+        <h5>Stack</h5>
+        <p>Python (pandas, numpy) for data generation · SQLite for the analytical
+        SQL layer · vanilla JS + Chart.js for the dashboard. Full SQL queries
+        included as a companion file.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>YT-TS Ops Dashboard · Portfolio project</span>
+    <span>Data window: 2026-02-23 – 2026-06-14 · Synthetic dataset</span>
+  </footer>
+
+</div>
+
+<script>
+const DATA = {"weekly_kpis": [{"iso_week": "2026-08", "week_start": "2026-02-23", "flagged": 17653, "removed": 12610, "appealed": 2755, "overturned": 416, "proactive_detection_rate_pct": 69.44, "overturn_rate_pct": 15.1, "median_tta_hours_proxy": 6.53}, {"iso_week": "2026-09", "week_start": "2026-03-02", "flagged": 17897, "removed": 12797, "appealed": 2793, "overturned": 431, "proactive_detection_rate_pct": 69.48, "overturn_rate_pct": 15.43, "median_tta_hours_proxy": 6.47}, {"iso_week": "2026-10", "week_start": "2026-03-09", "flagged": 17916, "removed": 12730, "appealed": 2853, "overturned": 453, "proactive_detection_rate_pct": 69.65, "overturn_rate_pct": 15.88, "median_tta_hours_proxy": 6.49}, {"iso_week": "2026-11", "week_start": "2026-03-16", "flagged": 18053, "removed": 12794, "appealed": 2816, "overturned": 460, "proactive_detection_rate_pct": 69.88, "overturn_rate_pct": 16.34, "median_tta_hours_proxy": 6.48}, {"iso_week": "2026-12", "week_start": "2026-03-23", "flagged": 18234, "removed": 12822, "appealed": 2834, "overturned": 475, "proactive_detection_rate_pct": 69.85, "overturn_rate_pct": 16.76, "median_tta_hours_proxy": 6.45}, {"iso_week": "2026-13", "week_start": "2026-03-30", "flagged": 18315, "removed": 13076, "appealed": 2818, "overturned": 446, "proactive_detection_rate_pct": 69.68, "overturn_rate_pct": 15.83, "median_tta_hours_proxy": 6.55}, {"iso_week": "2026-14", "week_start": "2026-04-06", "flagged": 18404, "removed": 13060, "appealed": 2868, "overturned": 452, "proactive_detection_rate_pct": 70.02, "overturn_rate_pct": 15.76, "median_tta_hours_proxy": 6.52}, {"iso_week": "2026-15", "week_start": "2026-04-13", "flagged": 18609, "removed": 13202, "appealed": 2935, "overturned": 498, "proactive_detection_rate_pct": 69.49, "overturn_rate_pct": 16.97, "median_tta_hours_proxy": 6.5}, {"iso_week": "2026-16", "week_start": "2026-04-20", "flagged": 20504, "removed": 15279, "appealed": 3396, "overturned": 446, "proactive_detection_rate_pct": 72.51, "overturn_rate_pct": 13.13, "median_tta_hours_proxy": 6.62}, {"iso_week": "2026-17", "week_start": "2026-04-27", "flagged": 18699, "removed": 13307, "appealed": 2852, "overturned": 449, "proactive_detection_rate_pct": 69.63, "overturn_rate_pct": 15.74, "median_tta_hours_proxy": 6.56}, {"iso_week": "2026-18", "week_start": "2026-05-04", "flagged": 18875, "removed": 13418, "appealed": 2910, "overturned": 486, "proactive_detection_rate_pct": 70.19, "overturn_rate_pct": 16.7, "median_tta_hours_proxy": 6.5}, {"iso_week": "2026-19", "week_start": "2026-05-11", "flagged": 18982, "removed": 13555, "appealed": 3014, "overturned": 467, "proactive_detection_rate_pct": 69.9, "overturn_rate_pct": 15.49, "median_tta_hours_proxy": 6.52}, {"iso_week": "2026-20", "week_start": "2026-05-18", "flagged": 19181, "removed": 13649, "appealed": 3107, "overturned": 488, "proactive_detection_rate_pct": 70.12, "overturn_rate_pct": 15.71, "median_tta_hours_proxy": 6.5}, {"iso_week": "2026-21", "week_start": "2026-05-25", "flagged": 19186, "removed": 13743, "appealed": 3074, "overturned": 462, "proactive_detection_rate_pct": 70.0, "overturn_rate_pct": 15.03, "median_tta_hours_proxy": 6.53}, {"iso_week": "2026-22", "week_start": "2026-06-01", "flagged": 19207, "removed": 13642, "appealed": 3008, "overturned": 464, "proactive_detection_rate_pct": 69.46, "overturn_rate_pct": 15.43, "median_tta_hours_proxy": 6.43}, {"iso_week": "2026-23", "week_start": "2026-06-08", "flagged": 19350, "removed": 13743, "appealed": 2952, "overturned": 462, "proactive_detection_rate_pct": 70.38, "overturn_rate_pct": 15.65, "median_tta_hours_proxy": 6.53}], "anomalies": [{"week_start": "2026-04-20", "region": "India", "policy_category": "Misinformation", "removed": 2822, "prev_week_removed": 810, "wow_pct_change": 248.4}], "rca": [{"device": "Mobile", "channel_age_bucket": "<7 days", "detection_source": "Automated Classifier", "removed": 1171, "pct_of_total": 41.5}, {"device": "Mobile", "channel_age_bucket": "<7 days", "detection_source": "Human Review (Proactive)", "removed": 246, "pct_of_total": 8.7}, {"device": "Mobile", "channel_age_bucket": "6+ months", "detection_source": "Automated Classifier", "removed": 189, "pct_of_total": 6.7}, {"device": "Mobile", "channel_age_bucket": "<7 days", "detection_source": "User Report", "removed": 159, "pct_of_total": 5.6}, {"device": "Mobile", "channel_age_bucket": "1-6 months", "detection_source": "Automated Classifier", "removed": 130, "pct_of_total": 4.6}, {"device": "Desktop", "channel_age_bucket": "6+ months", "detection_source": "Automated Classifier", "removed": 98, "pct_of_total": 3.5}, {"device": "Mobile", "channel_age_bucket": "7-30 days", "detection_source": "Automated Classifier", "removed": 97, "pct_of_total": 3.4}, {"device": "Mobile", "channel_age_bucket": "6+ months", "detection_source": "User Report", "removed": 96, "pct_of_total": 3.4}], "precision_check": [{"period": "Anomaly week", "removed": 2822, "appealed": 616, "overturned": 18, "overturn_rate_pct": 2.92}, {"period": "Baseline (all other weeks)", "removed": 12563, "appealed": 2723, "overturned": 408, "overturn_rate_pct": 14.98}], "top_combinations": [{"region": "India", "policy_category": "Spam & Deceptive Practices", "removed": 17711}, {"region": "India", "policy_category": "Misinformation", "removed": 15385}, {"region": "United States", "policy_category": "Spam & Deceptive Practices", "removed": 14315}, {"region": "Indonesia", "policy_category": "Spam & Deceptive Practices", "removed": 12486}, {"region": "India", "policy_category": "Harassment & Cyberbullying", "removed": 12232}, {"region": "Brazil", "policy_category": "Spam & Deceptive Practices", "removed": 11175}], "weekly_by_region": [{"iso_week": "2026-08", "week_start": "2026-02-23", "region": "Brazil", "removed": 2268}, {"iso_week": "2026-08", "week_start": "2026-02-23", "region": "India", "removed": 3500}, {"iso_week": "2026-08", "week_start": "2026-02-23", "region": "Indonesia", "removed": 2540}, {"iso_week": "2026-08", "week_start": "2026-02-23", "region": "Nigeria", "removed": 1387}, {"iso_week": "2026-08", "week_start": "2026-02-23", "region": "United States", "removed": 2915}, {"iso_week": "2026-09", "week_start": "2026-03-02", "region": "Brazil", "removed": 2350}, {"iso_week": "2026-09", "week_start": "2026-03-02", "region": "India", "removed": 3575}, {"iso_week": "2026-09", "week_start": "2026-03-02", "region": "Indonesia", "removed": 2599}, {"iso_week": "2026-09", "week_start": "2026-03-02", "region": "Nigeria", "removed": 1431}, {"iso_week": "2026-09", "week_start": "2026-03-02", "region": "United States", "removed": 2842}, {"iso_week": "2026-10", "week_start": "2026-03-09", "region": "Brazil", "removed": 2207}, {"iso_week": "2026-10", "week_start": "2026-03-09", "region": "India", "removed": 3626}, {"iso_week": "2026-10", "week_start": "2026-03-09", "region": "Indonesia", "removed": 2536}, {"iso_week": "2026-10", "week_start": "2026-03-09", "region": "Nigeria", "removed": 1490}, {"iso_week": "2026-10", "week_start": "2026-03-09", "region": "United States", "removed": 2871}, {"iso_week": "2026-11", "week_start": "2026-03-16", "region": "Brazil", "removed": 2184}, {"iso_week": "2026-11", "week_start": "2026-03-16", "region": "India", "removed": 3611}, {"iso_week": "2026-11", "week_start": "2026-03-16", "region": "Indonesia", "removed": 2465}, {"iso_week": "2026-11", "week_start": "2026-03-16", "region": "Nigeria", "removed": 1516}, {"iso_week": "2026-11", "week_start": "2026-03-16", "region": "United States", "removed": 3018}, {"iso_week": "2026-12", "week_start": "2026-03-23", "region": "Brazil", "removed": 2257}, {"iso_week": "2026-12", "week_start": "2026-03-23", "region": "India", "removed": 3661}, {"iso_week": "2026-12", "week_start": "2026-03-23", "region": "Indonesia", "removed": 2556}, {"iso_week": "2026-12", "week_start": "2026-03-23", "region": "Nigeria", "removed": 1413}, {"iso_week": "2026-12", "week_start": "2026-03-23", "region": "United States", "removed": 2935}, {"iso_week": "2026-13", "week_start": "2026-03-30", "region": "Brazil", "removed": 2289}, {"iso_week": "2026-13", "week_start": "2026-03-30", "region": "India", "removed": 3662}, {"iso_week": "2026-13", "week_start": "2026-03-30", "region": "Indonesia", "removed": 2542}, {"iso_week": "2026-13", "week_start": "2026-03-30", "region": "Nigeria", "removed": 1490}, {"iso_week": "2026-13", "week_start": "2026-03-30", "region": "United States", "removed": 3093}, {"iso_week": "2026-14", "week_start": "2026-04-06", "region": "Brazil", "removed": 2378}, {"iso_week": "2026-14", "week_start": "2026-04-06", "region": "India", "removed": 3672}, {"iso_week": "2026-14", "week_start": "2026-04-06", "region": "Indonesia", "removed": 2559}, {"iso_week": "2026-14", "week_start": "2026-04-06", "region": "Nigeria", "removed": 1420}, {"iso_week": "2026-14", "week_start": "2026-04-06", "region": "United States", "removed": 3031}, {"iso_week": "2026-15", "week_start": "2026-04-13", "region": "Brazil", "removed": 2418}, {"iso_week": "2026-15", "week_start": "2026-04-13", "region": "India", "removed": 3750}, {"iso_week": "2026-15", "week_start": "2026-04-13", "region": "Indonesia", "removed": 2520}, {"iso_week": "2026-15", "week_start": "2026-04-13", "region": "Nigeria", "removed": 1551}, {"iso_week": "2026-15", "week_start": "2026-04-13", "region": "United States", "removed": 2963}, {"iso_week": "2026-16", "week_start": "2026-04-20", "region": "Brazil", "removed": 2384}, {"iso_week": "2026-16", "week_start": "2026-04-20", "region": "India", "removed": 5630}, {"iso_week": "2026-16", "week_start": "2026-04-20", "region": "Indonesia", "removed": 2671}, {"iso_week": "2026-16", "week_start": "2026-04-20", "region": "Nigeria", "removed": 1567}, {"iso_week": "2026-16", "week_start": "2026-04-20", "region": "United States", "removed": 3027}, {"iso_week": "2026-17", "week_start": "2026-04-27", "region": "Brazil", "removed": 2393}, {"iso_week": "2026-17", "week_start": "2026-04-27", "region": "India", "removed": 3705}, {"iso_week": "2026-17", "week_start": "2026-04-27", "region": "Indonesia", "removed": 2599}, {"iso_week": "2026-17", "week_start": "2026-04-27", "region": "Nigeria", "removed": 1530}, {"iso_week": "2026-17", "week_start": "2026-04-27", "region": "United States", "removed": 3080}, {"iso_week": "2026-18", "week_start": "2026-05-04", "region": "Brazil", "removed": 2428}, {"iso_week": "2026-18", "week_start": "2026-05-04", "region": "India", "removed": 3776}, {"iso_week": "2026-18", "week_start": "2026-05-04", "region": "Indonesia", "removed": 2715}, {"iso_week": "2026-18", "week_start": "2026-05-04", "region": "Nigeria", "removed": 1512}, {"iso_week": "2026-18", "week_start": "2026-05-04", "region": "United States", "removed": 2987}, {"iso_week": "2026-19", "week_start": "2026-05-11", "region": "Brazil", "removed": 2396}, {"iso_week": "2026-19", "week_start": "2026-05-11", "region": "India", "removed": 3887}, {"iso_week": "2026-19", "week_start": "2026-05-11", "region": "Indonesia", "removed": 2611}, {"iso_week": "2026-19", "week_start": "2026-05-11", "region": "Nigeria", "removed": 1581}, {"iso_week": "2026-19", "week_start": "2026-05-11", "region": "United States", "removed": 3080}, {"iso_week": "2026-20", "week_start": "2026-05-18", "region": "Brazil", "removed": 2495}, {"iso_week": "2026-20", "week_start": "2026-05-18", "region": "India", "removed": 3801}, {"iso_week": "2026-20", "week_start": "2026-05-18", "region": "Indonesia", "removed": 2726}, {"iso_week": "2026-20", "week_start": "2026-05-18", "region": "Nigeria", "removed": 1584}, {"iso_week": "2026-20", "week_start": "2026-05-18", "region": "United States", "removed": 3043}, {"iso_week": "2026-21", "week_start": "2026-05-25", "region": "Brazil", "removed": 2479}, {"iso_week": "2026-21", "week_start": "2026-05-25", "region": "India", "removed": 3801}, {"iso_week": "2026-21", "week_start": "2026-05-25", "region": "Indonesia", "removed": 2767}, {"iso_week": "2026-21", "week_start": "2026-05-25", "region": "Nigeria", "removed": 1597}, {"iso_week": "2026-21", "week_start": "2026-05-25", "region": "United States", "removed": 3099}, {"iso_week": "2026-22", "week_start": "2026-06-01", "region": "Brazil", "removed": 2398}, {"iso_week": "2026-22", "week_start": "2026-06-01", "region": "India", "removed": 3841}, {"iso_week": "2026-22", "week_start": "2026-06-01", "region": "Indonesia", "removed": 2704}, {"iso_week": "2026-22", "week_start": "2026-06-01", "region": "Nigeria", "removed": 1602}, {"iso_week": "2026-22", "week_start": "2026-06-01", "region": "United States", "removed": 3097}, {"iso_week": "2026-23", "week_start": "2026-06-08", "region": "Brazil", "removed": 2409}, {"iso_week": "2026-23", "week_start": "2026-06-08", "region": "India", "removed": 3875}, {"iso_week": "2026-23", "week_start": "2026-06-08", "region": "Indonesia", "removed": 2727}, {"iso_week": "2026-23", "week_start": "2026-06-08", "region": "Nigeria", "removed": 1504}, {"iso_week": "2026-23", "week_start": "2026-06-08", "region": "United States", "removed": 3228}], "heatmap": [{"region": "Brazil", "policy_category": "Child Safety", "removed": 751}, {"region": "Brazil", "policy_category": "Harassment & Cyberbullying", "removed": 2009}, {"region": "Brazil", "policy_category": "Hate Speech", "removed": 1382}, {"region": "Brazil", "policy_category": "Misinformation", "removed": 2184}, {"region": "Brazil", "policy_category": "Spam & Deceptive Practices", "removed": 2912}, {"region": "Brazil", "policy_category": "Violent Extremism", "removed": 543}, {"region": "India", "policy_category": "Child Safety", "removed": 1200}, {"region": "India", "policy_category": "Harassment & Cyberbullying", "removed": 3155}, {"region": "India", "policy_category": "Hate Speech", "removed": 2022}, {"region": "India", "policy_category": "Misinformation", "removed": 3491}, {"region": "India", "policy_category": "Spam & Deceptive Practices", "removed": 4577}, {"region": "India", "policy_category": "Violent Extremism", "removed": 873}, {"region": "Indonesia", "policy_category": "Child Safety", "removed": 842}, {"region": "Indonesia", "policy_category": "Harassment & Cyberbullying", "removed": 2198}, {"region": "Indonesia", "policy_category": "Hate Speech", "removed": 1435}, {"region": "Indonesia", "policy_category": "Misinformation", "removed": 2500}, {"region": "Indonesia", "policy_category": "Spam & Deceptive Practices", "removed": 3315}, {"region": "Indonesia", "policy_category": "Violent Extremism", "removed": 634}, {"region": "Nigeria", "policy_category": "Child Safety", "removed": 479}, {"region": "Nigeria", "policy_category": "Harassment & Cyberbullying", "removed": 1277}, {"region": "Nigeria", "policy_category": "Hate Speech", "removed": 890}, {"region": "Nigeria", "policy_category": "Misinformation", "removed": 1403}, {"region": "Nigeria", "policy_category": "Spam & Deceptive Practices", "removed": 1869}, {"region": "Nigeria", "policy_category": "Violent Extremism", "removed": 369}, {"region": "United States", "policy_category": "Child Safety", "removed": 974}, {"region": "United States", "policy_category": "Harassment & Cyberbullying", "removed": 2474}, {"region": "United States", "policy_category": "Hate Speech", "removed": 1626}, {"region": "United States", "policy_category": "Misinformation", "removed": 2978}, {"region": "United States", "policy_category": "Spam & Deceptive Practices", "removed": 3694}, {"region": "United States", "policy_category": "Violent Extremism", "removed": 721}]};
+
+// ---------- helpers ----------
+const fmt = n => n.toLocaleString('en-US');
+const fmt1 = n => Number(n).toFixed(1);
+
+function sparklinePath(values, w, h, pad=3){
+  const min = Math.min(...values), max = Math.max(...values);
+  const range = (max - min) || 1;
+  const stepX = (w - pad*2) / (values.length - 1);
+  return values.map((v,i)=>{
+    const x = pad + i*stepX;
+    const y = h - pad - ((v - min)/range) * (h - pad*2);
+    return `${i===0?'M':'L'}${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+}
+
+function renderSparkline(container, values, color){
+  const w = 160, h = 30;
+  const d = sparklinePath(values, w, h);
+  const last = values[values.length-1], min = Math.min(...values), max = Math.max(...values);
+  const lastX = w - 3;
+  const lastY = h - 3 - (((last-min)/((max-min)||1)) * (h-6));
+  container.innerHTML = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <path d="${d}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.4" fill="${color}"/>
+  </svg>`;
+}
+
+// ---------- KPI strip ----------
+const wk = DATA.weekly_kpis;
+const latest = wk[wk.length-1], prior = wk[wk.length-2];
+
+function delta(a,b){
+  const pct = ((a-b)/b)*100;
+  return pct;
+}
+function deltaBadge(pct, goodIfUp){
+  const up = pct >= 0;
+  const goodClass = (up===goodIfUp) ? (up?'up-good':'down-good') : (up?'up-bad':'down-bad');
+  const arrow = up ? '▲' : '▼';
+  return `<span class="kpi-delta ${goodClass}">${arrow} ${Math.abs(pct).toFixed(1)}%</span>`;
+}
+
+const kpiDefs = [
+  { label:'Content Flagged (weekly)', key:'flagged', fmt:fmt, color:'#8D9AA6', goodIfUp:null },
+  { label:'Violative Removals (weekly)', key:'removed', fmt:fmt, color:'#7FD8CE', goodIfUp:null },
+  { label:'Proactive Detection Rate', key:'proactive_detection_rate_pct', fmt:v=>fmt1(v)+'%', color:'#4FB6AC', goodIfUp:true },
+  { label:'Appeal Overturn Rate', key:'overturn_rate_pct', fmt:v=>fmt1(v)+'%', color:'#E3A23E', goodIfUp:false },
+  { label:'Median Time-to-Action', key:'median_tta_hours_proxy', fmt:v=>fmt1(v)+'h', color:'#D8584A', goodIfUp:false },
+];
+
+const kpiGrid = document.getElementById('kpiGrid');
+kpiDefs.forEach(def=>{
+  const series = wk.map(w=>w[def.key]);
+  const pct = delta(latest[def.key], prior[def.key]);
+  const card = document.createElement('div');
+  card.className = 'kpi-card';
+  card.innerHTML = `
+    <div class="kpi-label">${def.label}</div>
+    <div class="kpi-value-row">
+      <span class="kpi-value">${def.fmt(latest[def.key])}</span>
+      ${def.goodIfUp===null ? '' : deltaBadge(pct, def.goodIfUp)}
+    </div>
+    <div class="kpi-spark"></div>
+  `;
+  kpiGrid.appendChild(card);
+  renderSparkline(card.querySelector('.kpi-spark'), series, def.color);
+});
+
+// ---------- Trend chart (stacked area by region) ----------
+const regions = [...new Set(DATA.weekly_by_region.map(r=>r.region))].sort();
+const weeks = [...new Set(DATA.weekly_by_region.map(r=>r.week_start))].sort();
+const regionColors = {
+  'India': '#E3A23E',
+  'United States': '#4FB6AC',
+  'Brazil': '#7C9CC4',
+  'Indonesia': '#9E7FCE',
+  'Nigeria': '#6FA888'
+};
+const trendLegend = document.getElementById('trendLegend');
+regions.forEach(r=>{
+  const item = document.createElement('span');
+  item.className = 'legend-item';
+  item.innerHTML = `<span class="legend-swatch" style="background:${regionColors[r]||'#888'}"></span>${r}`;
+  trendLegend.appendChild(item);
+});
+
+const datasets = regions.map(r=>{
+  const byWeek = {};
+  DATA.weekly_by_region.filter(d=>d.region===r).forEach(d=> byWeek[d.week_start]=d.removed);
+  return {
+    label: r,
+    data: weeks.map(w=> byWeek[w]||0),
+    backgroundColor: (regionColors[r]||'#888') + 'CC',
+    borderColor: regionColors[r]||'#888',
+    borderWidth: 1,
+    stack: 'r',
+    fill: true,
+  };
+});
+
+new Chart(document.getElementById('trendChart'), {
+  type: 'bar',
+  data: {
+    labels: weeks.map(w=> new Date(w).toLocaleDateString('en-US',{month:'short',day:'numeric'})),
+    datasets
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { stacked:true, grid:{ display:false }, ticks:{ color:'#8D9AA6', font:{family:'IBM Plex Mono', size:10} } },
+      y: { stacked:true, grid:{ color:'#202A33' }, ticks:{ color:'#8D9AA6', font:{family:'IBM Plex Mono', size:10} } }
+    },
+    plugins: {
+      legend: { display:false },
+      tooltip: {
+        backgroundColor:'#1C262F', borderColor:'#2A3540', borderWidth:1,
+        titleFont:{family:'IBM Plex Mono', size:11}, bodyFont:{family:'IBM Plex Mono', size:11},
+        padding:10
+      }
+    }
+  }
+});
+
+// ---------- Heatmap ----------
+const cats = [...new Set(DATA.heatmap.map(d=>d.policy_category))].sort();
+const hmRegions = [...new Set(DATA.heatmap.map(d=>d.region))].sort();
+const hmMax = Math.max(...DATA.heatmap.map(d=>d.removed));
+function heatColor(v){
+  const t = v / hmMax;
+  // interpolate from surface-raised to amber/red
+  const r = Math.round(28 + t*(216-28));
+  const g = Math.round(38 + t*(88-38));
+  const b = Math.round(47 + t*(74-47));
+  return `rgb(${r},${g},${b})`;
+}
+const hmEl = document.getElementById('heatmap');
+hmEl.appendChild(Object.assign(document.createElement('div'), {className:'hcol-label', textContent:''}));
+cats.forEach(c=>{
+  const lbl = document.createElement('div');
+  lbl.className = 'hcol-label';
+  lbl.textContent = c;
+  hmEl.appendChild(lbl);
+});
+hmRegions.forEach(r=>{
+  const rowLabel = document.createElement('div');
+  rowLabel.className = 'hrow-label';
+  rowLabel.textContent = r;
+  hmEl.appendChild(rowLabel);
+  cats.forEach(c=>{
+    const rec = DATA.heatmap.find(d=>d.region===r && d.policy_category===c);
+    const v = rec ? rec.removed : 0;
+    const cell = document.createElement('div');
+    cell.className = 'hcell';
+    cell.style.background = heatColor(v);
+    cell.textContent = fmt(v);
+    hmEl.appendChild(cell);
+  });
+});
+
+// ---------- RCA Case File ----------
+const anomaly = DATA.anomalies[0];
+document.getElementById('alertText').innerHTML =
+  `<b>ANOMALY DETECTED</b> — ${anomaly.region} / ${anomaly.policy_category}, week of ${anomaly.week_start}: removals up <b>+${anomaly.wow_pct_change}%</b> week-over-week (${fmt(anomaly.prev_week_removed)} → ${fmt(anomaly.removed)})`;
+
+document.getElementById('detectStats').innerHTML = `
+  <div class="stat-line"><span>Region</span><span class="v hot">${anomaly.region}</span></div>
+  <div class="stat-line"><span>Category</span><span class="v hot">${anomaly.policy_category}</span></div>
+  <div class="stat-line"><span>Prior week</span><span class="v">${fmt(anomaly.prev_week_removed)}</span></div>
+  <div class="stat-line"><span>Anomaly week</span><span class="v hot">${fmt(anomaly.removed)}</span></div>
+  <div class="stat-line"><span>WoW change</span><span class="v hot">+${anomaly.wow_pct_change}%</span></div>
+`;
+
+const rcaTop = DATA.rca.slice(0,5);
+const rcaMax = Math.max(...rcaTop.map(d=>d.removed));
+document.getElementById('rcaBars').innerHTML = rcaTop.map(d=>`
+  <div class="rca-bar-row">
+    <div class="rca-bar-label"><span>${d.device} · ${d.channel_age_bucket} · ${d.detection_source}</span><span>${d.pct_of_total}%</span></div>
+    <div class="rca-bar-track"><div class="rca-bar-fill" style="width:${(d.removed/rcaMax*100).toFixed(0)}%"></div></div>
+  </div>
+`).join('');
+
+const pc = DATA.precision_check;
+const anomalyPc = pc.find(d=>d.period==='Anomaly week');
+const basePc = pc.find(d=>d.period.startsWith('Baseline'));
+document.getElementById('precisionCompare').innerHTML = `
+  <div class="precision-card low">
+    <div class="pc-label">Anomaly week</div>
+    <div class="pc-value">${fmt1(anomalyPc.overturn_rate_pct)}%</div>
+  </div>
+  <div class="precision-card high">
+    <div class="pc-label">Baseline weeks</div>
+    <div class="pc-value">${fmt1(basePc.overturn_rate_pct)}%</div>
+  </div>
+`;
+
+const topCohortPct = rcaTop[0].pct_of_total;
+document.getElementById('verdictP1').innerHTML =
+  `This was <strong>not a classifier precision problem.</strong> The appeal overturn rate during the
+  anomaly week (${fmt1(anomalyPc.overturn_rate_pct)}%) was lower than the 16-week baseline
+  (${fmt1(basePc.overturn_rate_pct)}%) — meaning enforcement got <em>more</em> confident, not less.
+  ${topCohortPct}% of the spike traces to a single cohort: <strong>${rcaTop[0].device.toLowerCase()} uploads
+  from channels under 7 days old</strong>, caught mostly by the automated classifier.`;
+document.getElementById('verdictP2').innerHTML =
+  `<strong>Read:</strong> pattern is consistent with a coordinated, low-effort channel network rather than
+  organic creator behavior — timed to a regional news cycle. <strong>Recommendation:</strong> this is a
+  network-detection problem, not a policy-threshold problem. Route to the proactive-detection team to
+  evaluate channel-creation-velocity signals as an early-warning feature, rather than loosening or
+  tightening the Misinformation classifier threshold.`;
+</script>
+</body>
+</html>
