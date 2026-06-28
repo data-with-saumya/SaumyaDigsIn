@@ -26,8 +26,10 @@
   let current = null;
   function moveIndicator(){
     const active = $(".navitem.is-active");
-    if(!active){ navind.classList.remove("show"); return; }
-    navind.style.transform = "translateY(" + active.offsetTop + "px)";
+    if(!active || !navind){ navind && navind.classList.remove("show"); return; }
+    // horizontal indicator: move and resize to match active tab
+    navind.style.transform = "translateX(" + active.offsetLeft + "px)";
+    navind.style.width = active.offsetWidth + "px";
     navind.classList.add("show");
   }
   function animateView(view){
@@ -45,8 +47,8 @@
 
     $$(".view").forEach(v=> v.classList.toggle("is-shown", v.id===page.id));
     navItems.forEach(n=> n.classList.toggle("is-active", n.dataset.view===page.id));
-    tbIx.textContent = page.ix;
-    tbName.textContent = page.name;
+    if(tbIx) tbIx.textContent = page.ix;
+    if(tbName) tbName.textContent = page.name;
     document.title = "Saumya Singh · " + page.name;
     if(push !== false && location.hash !== "#"+page.id) history.replaceState(null,"","#"+page.id);
 
@@ -119,10 +121,10 @@
   });
 
   /* ---------- mobile nav ---------- */
-  const side=$("#side"), scrim=$("#scrim"), burger=$("#burger");
-  function openNav(){ side.classList.add("open"); scrim.classList.add("show"); }
-  function closeNav(){ side.classList.remove("open"); scrim.classList.remove("show"); }
-  burger && burger.addEventListener("click",()=> side.classList.contains("open")?closeNav():openNav());
+  const navlist=$("#navlist"), scrim=$("#scrim"), burger=$("#burger");
+  function openNav(){ navlist && navlist.classList.add("open"); scrim && scrim.classList.add("show"); }
+  function closeNav(){ navlist && navlist.classList.remove("open"); scrim && scrim.classList.remove("show"); }
+  burger && burger.addEventListener("click",()=> navlist && navlist.classList.contains("open")?closeNav():openNav());
   scrim && scrim.addEventListener("click", closeNav);
 
   /* ---------- command palette ---------- */
