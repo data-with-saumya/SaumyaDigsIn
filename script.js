@@ -28,10 +28,13 @@
   /* ---------- router ---------- */
   let current = null;
   function moveIndicator(){
-    const active = $(".navitem.is-active");
-    if(!active){ navind.classList.remove("show"); return; }
-    navind.style.transform = "translateY(" + active.offsetTop + "px)";
-    navind.classList.add("show");
+    requestAnimationFrame(()=>{
+      const active = $(".navitem.is-active");
+      if(!active || !navind){ if(navind) navind.classList.remove("show"); return; }
+      navind.style.transform = "translateY(" + active.offsetTop + "px)";
+      navind.style.height = active.offsetHeight + "px";
+      navind.classList.add("show");
+    });
   }
   function animateView(view){
     // counters
@@ -184,5 +187,6 @@
 
   /* ---------- boot ---------- */
   window.addEventListener("resize", moveIndicator);
+  window.addEventListener("load", moveIndicator);
   goTo((location.hash||"#overview").slice(1), false);
 })();
