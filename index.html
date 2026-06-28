@@ -36,9 +36,10 @@
       <a class="navitem" href="#overview"   data-view="overview"><span class="navitem__ix">01</span><span class="navitem__ic">◰</span><span class="navitem__tx">Overview</span></a>
       <a class="navitem" href="#experience" data-view="experience"><span class="navitem__ix">02</span><span class="navitem__ic">▤</span><span class="navitem__tx">Experience</span></a>
       <a class="navitem" href="#impact"     data-view="impact"><span class="navitem__ix">03</span><span class="navitem__ic">▦</span><span class="navitem__tx">Impact</span></a>
-      <a class="navitem" href="#skills"     data-view="skills"><span class="navitem__ix">04</span><span class="navitem__ic">◳</span><span class="navitem__tx">Skills</span></a>
-      <a class="navitem" href="#education"  data-view="education"><span class="navitem__ix">05</span><span class="navitem__ic">◎</span><span class="navitem__tx">Education</span></a>
-      <a class="navitem" href="#contact"    data-view="contact"><span class="navitem__ix">06</span><span class="navitem__ic">✦</span><span class="navitem__tx">Contact</span></a>
+      <a class="navitem" href="#projects"   data-view="projects"><span class="navitem__ix">04</span><span class="navitem__ic">◆</span><span class="navitem__tx">Projects</span></a>
+      <a class="navitem" href="#skills"     data-view="skills"><span class="navitem__ix">05</span><span class="navitem__ic">◳</span><span class="navitem__tx">Skills</span></a>
+      <a class="navitem" href="#education"  data-view="education"><span class="navitem__ix">06</span><span class="navitem__ic">◎</span><span class="navitem__tx">Education</span></a>
+      <a class="navitem" href="#contact"    data-view="contact"><span class="navitem__ix">07</span><span class="navitem__ic">✦</span><span class="navitem__tx">Contact</span></a>
       <span class="navind" id="navind" aria-hidden="true"></span>
     </nav>
 
@@ -350,8 +351,182 @@
       </div>
     </section>
 
+    <!-- ============================================================= PROJECTS -->
+    <section class="view" id="projects" data-ix="04" data-name="Projects">
+      <div class="vwrap">
+        <header class="vhead">
+          <h2 class="vhead__title">Projects from <em>SaumyaDigsIn</em></h2>
+          <p class="vhead__sub">Personal investigations — each one a full case: the problem, the data, the SQL, and the decision. <a class="vhead__link" href="https://github.com/data-with-saumya/SaumyaDigsIn" target="_blank" rel="noopener noreferrer">github.com/data-with-saumya/SaumyaDigsIn ↗</a></p>
+        </header>
+
+        <div class="projects-grid">
+          <button class="proj-card" data-view="project-trust-safety" type="button">
+            <div class="proj-card__top">
+              <span class="proj-card__ix">P-01</span>
+              <span class="proj-card__status proj-card__status--closed">● investigation_closed</span>
+            </div>
+            <div class="proj-card__hero">
+              <span class="proj-card__metric">+248<small>%</small></span>
+              <span class="proj-card__metric-l">weekly removals spike</span>
+            </div>
+            <h3 class="proj-card__title">Content moderation spike investigation</h3>
+            <p class="proj-card__hook">Was the system overreacting — or was something real happening? Full 3-step SQL investigation: anomaly detection → RCA → precision check.</p>
+            <div class="proj-card__tags">
+              <span class="proj-tag">Trust &amp; Safety</span>
+              <span class="proj-tag">SQL · Window Functions</span>
+              <span class="proj-tag">Anomaly Detection</span>
+            </div>
+            <span class="proj-card__cta">Open project <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </button>
+
+          <button class="proj-card" data-view="project-fraud-alert" type="button">
+            <div class="proj-card__top">
+              <span class="proj-card__ix">P-02</span>
+              <span class="proj-card__status proj-card__status--open">◎ product_investigation</span>
+            </div>
+            <div class="proj-card__hero">
+              <span class="proj-card__metric">~95<small>%</small></span>
+              <span class="proj-card__metric-l">fraud alert false positives</span>
+            </div>
+            <h3 class="proj-card__title">Should we build the "This Was Me" button?</h3>
+            <p class="proj-card__hook">A full PM investigation — RICE scoring across 3 features, PRD with guardrails, and a complete A/B test spec with kill-switch conditions.</p>
+            <div class="proj-card__tags">
+              <span class="proj-tag">FinTech</span>
+              <span class="proj-tag">Product Management</span>
+              <span class="proj-tag">A/B Testing</span>
+            </div>
+            <span class="proj-card__cta">Open project <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= PROJECT · TRUST & SAFETY -->
+    <section class="view" id="project-trust-safety" data-ix="04" data-name="Projects · Trust & Safety">
+      <div class="vwrap">
+        <a class="proj-back" href="#projects" data-view="projects">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          Back to projects
+        </a>
+
+        <header class="vhead vhead--proj">
+          <span class="proj-detail__kicker">P-01 · Trust &amp; Safety · SQL Analytics · Anomaly Detection</span>
+          <h2 class="vhead__title">Content removals jumped <em>+248%</em> in a week. Was the system overreacting — or was something real happening?</h2>
+          <p class="vhead__sub">A full 3-step investigation across simulated trust &amp; safety enforcement data: anomaly detection → multi-variable RCA → precision check. The wrong diagnosis means the wrong fix — tighten a policy when you should be hunting a network, or vice versa.</p>
+        </header>
+
+        <div class="proj-actions">
+          <a class="btn btn--primary" href="https://github.com/data-with-saumya/SaumyaDigsIn/tree/main/projects/trust-safety-policy-enforcement" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+          <a class="btn btn--ghost" href="https://www.linkedin.com/posts/saumya-singh-0604_%F0%9D%97%A7%F0%9D%97%B5%F0%9D%97%B2-%F0%9D%97%A0%F0%9D%97%B6%F0%9D%98%80%F0%9D%97%B6%F0%9D%97%BB%F0%9D%97%B3%F0%9D%97%BC%F0%9D%97%BF%F0%9D%97%BA%F0%9D%97%AE%F0%9D%98%81%F0%9D%97%B6%F0%9D%97%BC%F0%9D%97%BB-%F0%9D%97%A6%F0%9D%97%BD%F0%9D%97%B6%F0%9D%97%B8%F0%9D%97%B2-activity-7475042507882455040--tqv" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.74H5.67v8.6h2.67zM7 8.57a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zM18.34 18.34v-4.71c0-2.52-1.35-3.69-3.14-3.69a2.71 2.71 0 0 0-2.46 1.35h-.04V9.74h-2.56v8.6h2.67v-4.25c0-1.12.21-2.2 1.6-2.2 1.37 0 1.39 1.28 1.39 2.27v4.18h2.68z"/></svg>
+            Read on LinkedIn
+          </a>
+        </div>
+
+        <div class="proj-flow">
+          <div class="proj-step">
+            <span class="proj-step__num">STEP 01 · DETECT</span>
+            <h4 class="proj-step__name">Anomaly flagged</h4>
+            <p class="proj-step__det"><b>810 → 2,822</b> removals on the India / Misinformation cell, caught automatically by a LAG() window-function query — not eyeballed on a chart.</p>
+          </div>
+          <div class="proj-step">
+            <span class="proj-step__num">STEP 02 · DISENTANGLE</span>
+            <h4 class="proj-step__name">Root cause cohort</h4>
+            <p class="proj-step__det">Sliced across device × channel age × detection source. <b>41%</b> of the spike traced to one cohort: <b>accounts under 7 days old, uploading from mobile</b>.</p>
+          </div>
+          <div class="proj-step">
+            <span class="proj-step__num">STEP 03 · VALIDATE</span>
+            <h4 class="proj-step__name">Precision check</h4>
+            <p class="proj-step__det">Appeal overturn rate during the spike: <b>2.9%</b> — vs. <b>15.0%</b> at baseline. The system got <b>more</b> confident during the spike, not less.</p>
+          </div>
+          <div class="proj-step proj-step--verdict">
+            <span class="proj-step__num">VERDICT</span>
+            <h4 class="proj-step__name">Not a bug. A coordinated push.</h4>
+            <p class="proj-step__det">Route to network-detection (channel-creation-velocity as an early-warning signal). Don't touch the Misinformation classifier — over-enforcing isn't the problem.</p>
+          </div>
+        </div>
+
+        <div class="proj-files">
+          <h4 class="proj-files__head">Files in this project</h4>
+          <ul class="proj-files__list">
+            <li><span class="ext">.sql</span> <b>analysis_queries.sql</b><span class="desc">Full SQL pack: schema, KPI framework, anomaly detection, RCA, precision check</span></li>
+            <li><span class="ext">.html</span> <b>dashboard.html</b><span class="desc">Interactive enforcement dashboard with KPI strip, regional trend, RCA case file</span></li>
+            <li><span class="ext">.md</span> <b>README.md</b><span class="desc">Full writeup, findings, and verdict</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= PROJECT · FRAUD ALERT -->
+    <section class="view" id="project-fraud-alert" data-ix="04" data-name="Projects · Fraud Alert">
+      <div class="vwrap">
+        <a class="proj-back" href="#projects" data-view="projects">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+          Back to projects
+        </a>
+
+        <header class="vhead vhead--proj">
+          <span class="proj-detail__kicker">P-02 · FinTech · Product Management · A/B Testing</span>
+          <h2 class="vhead__title">Should we build a <em>"This Was Me"</em> button on fraud alerts?</h2>
+          <p class="vhead__sub">Fraud alerts fire false positives ~95% of the time. Users disable them. That's a security catastrophe hiding inside a UX metric. Full PM investigation: RICE scoring across 3 candidate features, a PRD with guardrails, and a complete A/B test spec with kill-switch conditions.</p>
+        </header>
+
+        <div class="proj-actions">
+          <a class="btn btn--primary" href="https://github.com/data-with-saumya/SaumyaDigsIn/tree/main/projects/fraud-alert-feedback-loop" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+          <span class="btn btn--ghost btn--disabled" aria-disabled="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.74H5.67v8.6h2.67zM7 8.57a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zM18.34 18.34v-4.71c0-2.52-1.35-3.69-3.14-3.69a2.71 2.71 0 0 0-2.46 1.35h-.04V9.74h-2.56v8.6h2.67v-4.25c0-1.12.21-2.2 1.6-2.2 1.37 0 1.39 1.28 1.39 2.27v4.18h2.68z"/></svg>
+            LinkedIn post coming soon
+          </span>
+        </div>
+
+        <div class="proj-flow">
+          <div class="proj-step">
+            <span class="proj-step__num">STEP 01 · PROBLEM</span>
+            <h4 class="proj-step__name">~95% false positives</h4>
+            <p class="proj-step__det">Users disable fraud alerts when they fire wrongly — and lose the only real-time channel they have for actual fraud. A security catastrophe disguised as a UX metric.</p>
+          </div>
+          <div class="proj-step">
+            <span class="proj-step__num">STEP 02 · RICE: 63</span>
+            <h4 class="proj-step__name">Feedback loop wins</h4>
+            <p class="proj-step__det">vs. threshold tuning (43) and alert snooze (27). Hardest to build safely — easiest to misuse as a model bypass if guardrails aren't there.</p>
+          </div>
+          <div class="proj-step">
+            <span class="proj-step__num">STEP 03 · PRD</span>
+            <h4 class="proj-step__name">Guardrails first</h4>
+            <p class="proj-step__det">15% weight cap. High-confidence lock above 0.85 fraud probability. Tiered UX friction by transaction value. Abuse detection on the feedback channel itself.</p>
+          </div>
+          <div class="proj-step">
+            <span class="proj-step__num">STEP 04 · A/B TEST</span>
+            <h4 class="proj-step__name">50/50 · 30 days</h4>
+            <p class="proj-step__det">Kill switch: +2% relative fraud miss rate vs. control = immediate pause. Checked daily, not at end-of-test. Bayesian sequential monitoring.</p>
+          </div>
+          <div class="proj-step proj-step--verdict">
+            <span class="proj-step__num">VERDICT</span>
+            <h4 class="proj-step__name">Build it. Conditions first.</h4>
+            <p class="proj-step__det">The PM job isn't deciding to build — it's defining the conditions under which building is safe, and making sure those conditions ship before the feature.</p>
+          </div>
+        </div>
+
+        <div class="proj-files">
+          <h4 class="proj-files__head">Files in this project</h4>
+          <ul class="proj-files__list">
+            <li><span class="ext">.md</span> <b>README.md</b><span class="desc">Investigation overview, verdict, and source links</span></li>
+            <li><span class="ext">.md</span> <b>prd.md</b><span class="desc">Full product requirements document with guardrail specs</span></li>
+            <li><span class="ext">.md</span> <b>rice_scoring.md</b><span class="desc">3-feature RICE prioritization analysis</span></li>
+            <li><span class="ext">.md</span> <b>ab_test_design.md</b><span class="desc">Experiment design with metrics, guardrails, and decision framework</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- ============================================================= SKILLS -->
-    <section class="view" id="skills" data-ix="04" data-name="Skills">
+    <section class="view" id="skills" data-ix="05" data-name="Skills">
       <div class="vwrap">
         <header class="vhead">
           <h2 class="vhead__title">Skills &amp; toolkit</h2>
@@ -394,7 +569,7 @@
     </section>
 
     <!-- ============================================================= EDUCATION -->
-    <section class="view" id="education" data-ix="05" data-name="Education">
+    <section class="view" id="education" data-ix="06" data-name="Education">
       <div class="vwrap">
         <header class="vhead">
           <h2 class="vhead__title">Education &amp; journey</h2>
@@ -427,7 +602,7 @@
     </section>
 
     <!-- ============================================================= CONTACT -->
-    <section class="view" id="contact" data-ix="06" data-name="Contact">
+    <section class="view" id="contact" data-ix="07" data-name="Contact">
       <div class="vwrap vwrap--center">
         <div class="contact">
           <h2 class="contact__title">Let's build something <span class="grad">with data.</span></h2>
