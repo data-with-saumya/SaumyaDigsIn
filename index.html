@@ -3,443 +3,344 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saumya Singh · Data Storyteller</title>
-  <meta name="description" content="Saumya Singh — Data Storyteller & Senior Data Associate. Turning complex data into executive-ready decisions across $87B+ AUM hedge-fund portfolios." />
+  <title>Saumya Singh · Senior Data Associate</title>
+  <meta name="description" content="Saumya Singh — Data Storyteller & Senior Data Associate. 4+ years turning complex data into executive-ready narratives across $87B+ AUM hedge fund portfolios." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Ambient background -->
-  <div class="bg" aria-hidden="true">
-    <div class="bg__grid"></div>
-    <div class="bg__orb bg__orb--1"></div>
-    <div class="bg__orb bg__orb--2"></div>
-    <div class="bg__orb bg__orb--3"></div>
-    <div class="bg__noise"></div>
-  </div>
+  <!-- Animated background -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow glow-1" aria-hidden="true"></div>
+  <div class="bg-glow glow-2" aria-hidden="true"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
 
-  <!-- ============ TOP NAVIGATION ============ -->
-  <header class="topnav" id="topnav">
-    <a class="brand" href="#overview" data-view="overview">
-      <span class="brand__logo">SS</span>
-      <span class="brand__txt">
-        <strong>Saumya Singh</strong>
-        <em>Data Storyteller</em>
-      </span>
+  <!-- Progress bar -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Nav -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__brand">
+      <span class="nav__logo">SS</span>
+      <span class="nav__name">Saumya Singh</span>
     </a>
-
-    <nav class="navlist" id="navlist" aria-label="Primary">
-      <a class="navitem" href="#overview"   data-view="overview"><span class="navitem__ix">01</span><span class="navitem__tx">Overview</span></a>
-      <a class="navitem" href="#experience" data-view="experience"><span class="navitem__ix">02</span><span class="navitem__tx">Experience</span></a>
-      <a class="navitem" href="#impact"     data-view="impact"><span class="navitem__ix">03</span><span class="navitem__tx">Impact</span></a>
-      <a class="navitem" href="#skills"     data-view="skills"><span class="navitem__ix">04</span><span class="navitem__tx">Skills</span></a>
-      <a class="navitem" href="#education"  data-view="education"><span class="navitem__ix">05</span><span class="navitem__tx">Education</span></a>
-      <a class="navitem" href="#contact"    data-view="contact"><span class="navitem__ix">06</span><span class="navitem__tx">Contact</span></a>
-      <span class="navind" id="navind" aria-hidden="true"></span>
+    <nav class="nav__links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
     </nav>
-
-    <div class="topnav__actions">
-      <button class="cmdk cmdk--mini" id="cmdkBtn" type="button" aria-label="Search">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <kbd>⌘K</kbd>
-      </button>
-      <a class="btn btn--ghost btn--sm" href="Saumya_Singh_Resume.pdf" download>Résumé</a>
-      <a class="btn btn--primary btn--sm" href="https://www.linkedin.com/in/saumya-singh-0604/" target="_blank" rel="noopener noreferrer">Let's connect</a>
-    </div>
-
-    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a href="https://www.linkedin.com/in/saumya-singh-0604/" target="_blank" rel="noopener noreferrer" class="btn btn--sm btn--primary nav__cta">
+      Let's connect
+    </a>
+    <button class="nav__burger" id="burger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
   </header>
-  <div class="scrim" id="scrim" aria-hidden="true"></div>
 
-  <!-- ============ STAGE ============ -->
-  <main class="stage" id="stage">
-    <!-- ============================================================= OVERVIEW -->
-    <section class="view" id="overview" data-ix="01" data-name="Overview">
-      <div class="vwrap">
-        <div class="hero">
-          <p class="hero__eyebrow"><span class="dot"></span> Available for high-impact data roles</p>
-          <h1 class="hero__title"><span class="grad">Saumya Singh</span></h1>
-          <p class="hero__role"><span id="typed"></span><span class="caret">▌</span></p>
-          <p class="hero__lede">
-            I turn complex statistics into clear, executive-ready narratives —
-            driving measurable impact across <b>$87B+ AUM</b> portfolios and
-            <b>global hedge-fund clients</b>. Fluent in SQL, Python, Power BI &amp; the language of decision-makers.
-          </p>
-          <div class="hero__cta">
-            <a class="btn btn--primary" href="#impact" data-view="impact">
-              <svg viewBox="0 0 24 24" class="ic"><path d="M4 20V10h3v10H4zm6.5 0V4h3v16h-3zM17 20v-7h3v7h-3z"/></svg>
-              See the impact
-            </a>
-            <a class="btn btn--ghost" href="#experience" data-view="experience">Explore experience →</a>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__inner reveal">
+        <p class="hero__eyebrow">
+          <span class="status-dot"></span> Available for high-impact data roles
+        </p>
+        <h1 class="hero__title">
+          <span class="hero__name">Saumya Singh</span>
+        </h1>
+        <p class="hero__role">
+          <span class="typed" id="typed"></span><span class="caret">|</span>
+        </p>
+        <p class="hero__tag">
+          A <strong>Data Storyteller</strong> turning complex statistics into clear,
+          executive-ready narratives — driving measurable impact across
+          <strong>$87B+ AUM</strong> portfolios and global hedge-fund clients.
+        </p>
+
+        <div class="hero__actions">
+          <a href="https://www.linkedin.com/in/saumya-singh-0604/" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+            <svg viewBox="0 0 24 24" class="ico"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.74H5.67v8.6h2.67zM7 8.57a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zM18.34 18.34v-4.71c0-2.52-1.35-3.69-3.14-3.69a2.71 2.71 0 0 0-2.46 1.35h-.04V9.74h-2.56v8.6h2.67v-4.25c0-1.12.21-2.2 1.6-2.2 1.37 0 1.39 1.28 1.39 2.27v4.18h2.68z"/></svg>
+            Connect on LinkedIn
+          </a>
+          <a href="https://github.com/data-with-saumya" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">
+            <svg viewBox="0 0 24 24" class="ico"><path d="M12 2A10 10 0 0 0 8.84 21.5c.5.08.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.46-1.11-1.46-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.16.57.67.48A10 10 0 0 0 12 2z"/></svg>
+            View GitHub
+          </a>
+          <a href="assets/Saumya_Singh_Resume.pdf" download class="btn btn--ghost">
+            <svg viewBox="0 0 24 24" class="ico"><path d="M12 3v10.5l3.3-3.3 1.4 1.4-5.7 5.7-5.7-5.7 1.4-1.4 3.3 3.3V3h2zM5 19h14v2H5z"/></svg>
+            Download CV
+          </a>
+        </div>
+      </div>
+
+      <!-- Floating stat cards -->
+      <div class="hero__stats reveal" data-delay="200">
+        <div class="stat-card glass">
+          <span class="stat-card__num" data-count="87" data-suffix="B+">0</span>
+          <span class="stat-card__label">AUM analysed (USD)</span>
+        </div>
+        <div class="stat-card glass">
+          <span class="stat-card__num" data-count="4" data-suffix=" yrs">0</span>
+          <span class="stat-card__label">Data analytics experience</span>
+        </div>
+        <div class="stat-card glass">
+          <span class="stat-card__num" data-count="200" data-suffix="+">0</span>
+          <span class="stat-card__label">Man-hours saved / year</span>
+        </div>
+        <div class="stat-card glass">
+          <span class="stat-card__num" data-count="10" data-suffix="+">0</span>
+          <span class="stat-card__label">Hedge-fund clients served</span>
+        </div>
+      </div>
+      <a href="#about" class="hero__scroll" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section__head reveal">
+        <span class="section__index">01</span>
+        <h2 class="section__title">About</h2>
+      </div>
+      <div class="about reveal">
+        <p class="about__lead">
+          I'm a <strong>data storyteller</strong> with 4 years of experience in
+          data analytics, statistical problem-solving, and executive reporting
+          across <strong>financial services</strong> and
+          <strong>alternative asset management</strong>.
+        </p>
+        <p>
+          I work fluently in <strong>SQL, Python, Power BI and Excel</strong> for
+          large-scale data analysis, hypothesis testing, and root-cause
+          investigation of metric anomalies. I design success metrics, build
+          performance-tracking frameworks, partner with cross-functional
+          stakeholders, and translate complex statistical analysis into clear,
+          actionable narratives for executive leadership — driving measurable
+          business impact across <strong>$87B+ AUM</strong> portfolios and
+          <strong>5 global hedge-fund clients</strong>.
+        </p>
+        <div class="about__chips">
+          <span class="chip">Data Analytics</span>
+          <span class="chip">Executive Reporting</span>
+          <span class="chip">MDM &amp; Data Governance</span>
+          <span class="chip">Hedge Funds</span>
+          <span class="chip">ESG Strategy</span>
+          <span class="chip">AI Product Strategy</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section">
+      <div class="section__head reveal">
+        <span class="section__index">02</span>
+        <h2 class="section__title">Experience</h2>
+      </div>
+
+      <div class="timeline">
+        <!-- Senior Data Associate -->
+        <article class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card glass">
+            <div class="tl-card__top">
+              <div>
+                <h3 class="tl-role">Senior Data Associate</h3>
+                <p class="tl-org">Indus Valley Partners · Noida</p>
+              </div>
+              <span class="tl-date">Apr 2025 — Present</span>
+            </div>
+            <ul class="tl-points">
+              <li><strong>Data Consulting &amp; Automation</strong> — delivered a <em>15% gain in operational efficiency</em> and saved <em>200+ man-hours annually</em> by orchestrating data-driven consulting for global hedge funds and automating end-to-end reporting workflows and pipelines using SQL, Python and the Enterprise Data Management system.</li>
+              <li><strong>Experiment Design &amp; Solution Validation</strong> — validated a new AI-powered analytics solution before company-wide rollout by piloting the Portfolio Monitoring chatbot and aligning NY-based stakeholders with the internal product team.</li>
+              <li><strong>Validation Automation</strong> — reduced manual testing effort to <em>10% of prior levels</em> by redesigning post-migration validation around automated alert monitoring and targeted error resolution.</li>
+              <li><strong>ESG Strategy &amp; Insight Generation</strong> — pioneered an ESG Policy Trend Analysis framework, translating regulatory complexity into actionable insights leveraged in client pitches.</li>
+              <li><strong>Team Leadership</strong> — led a 6-member analyst team across concurrent global mandates, improving delivery accuracy by <em>15%</em>.</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Data Associate -->
+        <article class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card glass">
+            <div class="tl-card__top">
+              <div>
+                <h3 class="tl-role">Data Associate</h3>
+                <p class="tl-org">Indus Valley Partners · Noida</p>
+              </div>
+              <span class="tl-date">Oct 2022 — Mar 2025</span>
+            </div>
+            <p class="tl-note">Promoted to Senior Data Associate after 2.5 years of consistent delivery, with 6 Data Associates reporting in.</p>
+            <ul class="tl-points">
+              <li><strong>MDM Implementation (Project Owner)</strong> — delivered IVP's Enterprise Data Dictionary; established metadata management, taxonomy modeling, data lineage and validation standards — <em>reducing production bugs from 54% to 25%</em>.</li>
+              <li><strong>Data Integration &amp; Architecture</strong> — designed scalable data governance frameworks across financial, portfolio, asset and client domains, creating a unified, audit-ready infrastructure adopted as a team standard.</li>
+              <li><strong>Portfolio Analytics</strong> — delivered insights for <em>$87B+ AUM</em> portfolios via data mining and predictive modeling, enabling C-suite decision-making.</li>
+              <li><strong>BI &amp; Reporting Strategy</strong> — governed Power BI dashboards for <em>10+ hedge-fund clients</em>, reducing manual effort by 15%.</li>
+              <li><strong>Business Analysis</strong> — authored BRDs, FRDs and Target Operating Models, bridging business and engineering for multi-million-dollar initiatives.</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Business Manager -->
+        <article class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card glass">
+            <div class="tl-card__top">
+              <div>
+                <h3 class="tl-role">Business Manager</h3>
+                <p class="tl-org">ETEHAS · Gurugram</p>
+              </div>
+              <span class="tl-date">Nov 2020 — May 2022</span>
+            </div>
+            <ul class="tl-points">
+              <li><strong>Entrepreneurial Leadership</strong> — ran end-to-end operations in a high-growth startup; pivoted strategy during COVID to drive a <em>22% increase in sales</em>.</li>
+              <li><strong>Proactive Problem Solving</strong> — managed the full lifecycle of retail pop-up stores from location scouting to lead generation.</li>
+              <li><strong>Market Research</strong> — analyzed customer segments and manufacturing workflows to optimize supply chains and support B2B deals.</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- BDE -->
+        <article class="tl-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card glass">
+            <div class="tl-card__top">
+              <div>
+                <h3 class="tl-role">Business Development Executive</h3>
+                <p class="tl-org">ACPL Systems Pvt. Ltd. · Gurugram</p>
+              </div>
+              <span class="tl-date">Jun 2019 — Mar 2020</span>
+            </div>
+            <ul class="tl-points">
+              <li>Generated leads and expanded customer interest by <em>10%</em> through targeted outreach.</li>
+              <li>Managed accounts end-to-end, maintaining the CRM cycle and sales funnel across <em>17 client relationships</em>.</li>
+              <li>Engaged IT leaders for panel discussions and webinars, increasing audience reach <em>3×</em>.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section">
+      <div class="section__head reveal">
+        <span class="section__index">03</span>
+        <h2 class="section__title">Skills &amp; Toolkit</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-cat glass reveal">
+          <h3 class="skill-cat__title"><span class="skill-cat__ico">◧</span> Technical</h3>
+          <div class="tags">
+            <span>Advanced SQL</span><span>SSMS</span><span>BigQuery</span>
+            <span>Python</span><span>Pandas</span><span>NumPy</span>
+            <span>scikit-learn</span><span>Power BI</span><span>Excel</span>
+            <span>Data Mining</span><span>ETL</span><span>Data Pipelines</span>
+            <span>Data Governance</span><span>MDM</span><span>monday.com</span><span>ClickUp</span>
           </div>
         </div>
-
-        <div class="kpis">
-          <button class="kpi" data-view="impact">
-            <span class="kpi__num"><span data-count="87" data-suffix="B+">0</span></span>
-            <span class="kpi__lbl">AUM analysed (USD)</span>
-            <span class="kpi__spark"></span>
-          </button>
-          <button class="kpi" data-view="experience">
-            <span class="kpi__num"><span data-count="4" data-suffix="+">0</span></span>
-            <span class="kpi__lbl">Years in data &amp; analytics</span>
-            <span class="kpi__spark"></span>
-          </button>
-          <button class="kpi" data-view="impact">
-            <span class="kpi__num"><span data-count="200" data-suffix="+">0</span></span>
-            <span class="kpi__lbl">Man-hours saved / year</span>
-            <span class="kpi__spark"></span>
-          </button>
-          <button class="kpi" data-view="impact">
-            <span class="kpi__num"><span data-count="10" data-suffix="+">0</span></span>
-            <span class="kpi__lbl">Hedge-fund clients served</span>
-            <span class="kpi__spark"></span>
-          </button>
-        </div>
-
-        <div class="ov-grid">
-          <article class="card ov-about">
-            <h3 class="card__kicker">// Profile</h3>
-            <p>
-              A <b>data storyteller</b> with 4 years across financial services and
-              alternative asset management. I design success metrics, build
-              performance-tracking frameworks, run hypothesis testing &amp; root-cause
-              analysis, and partner with cross-functional stakeholders to ship
-              decisions — not just dashboards.
-            </p>
-            <div class="chips">
-              <span class="chip" data-view="skills">Data Analytics</span>
-              <span class="chip" data-view="skills">Executive Reporting</span>
-              <span class="chip" data-view="skills">MDM &amp; Governance</span>
-              <span class="chip" data-view="skills">Hedge Funds</span>
-              <span class="chip" data-view="skills">ESG Strategy</span>
-              <span class="chip" data-view="skills">AI Product</span>
-            </div>
-          </article>
-          <article class="card ov-now">
-            <h3 class="card__kicker">// Currently</h3>
-            <p class="ov-now__role">Senior Data Associate</p>
-            <p class="ov-now__org">Indus Valley Partners · Noida</p>
-            <p class="ov-now__meta">Apr 2025 — Present · leading a 6-member analyst team</p>
-            <hr class="rule" />
-            <p class="ov-now__role">MBA · Business Analytics &amp; AI</p>
-            <p class="ov-now__org">IIM Ahmedabad</p>
-            <p class="ov-now__meta">Mar 2025 — Ongoing</p>
-            <a class="link-more" href="#education" data-view="education">View education →</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================= EXPERIENCE -->
-    <section class="view" id="experience" data-ix="02" data-name="Experience">
-      <div class="vwrap">
-        <header class="vhead">
-          <h2 class="vhead__title">Experience</h2>
-          <p class="vhead__sub">Six years of compounding ownership — from business development to leading data delivery for global hedge funds. <b>Select a role</b> to expand.</p>
-        </header>
-
-        <div class="exp">
-          <div class="exp__list" id="expList" role="tablist" aria-label="Roles">
-            <button class="exprole is-active" data-role="r1" role="tab">
-              <span class="exprole__dot"></span>
-              <span class="exprole__body">
-                <strong>Senior Data Associate</strong>
-                <em>Indus Valley Partners</em>
-                <span class="exprole__date">Apr 2025 — Present</span>
-              </span>
-            </button>
-            <button class="exprole" data-role="r2" role="tab">
-              <span class="exprole__dot"></span>
-              <span class="exprole__body">
-                <strong>Data Associate</strong>
-                <em>Indus Valley Partners</em>
-                <span class="exprole__date">Oct 2022 — Mar 2025</span>
-              </span>
-            </button>
-            <button class="exprole" data-role="r3" role="tab">
-              <span class="exprole__dot"></span>
-              <span class="exprole__body">
-                <strong>Business Manager</strong>
-                <em>ETEHAS</em>
-                <span class="exprole__date">Nov 2020 — May 2022</span>
-              </span>
-            </button>
-            <button class="exprole" data-role="r4" role="tab">
-              <span class="exprole__dot"></span>
-              <span class="exprole__body">
-                <strong>Business Development Exec.</strong>
-                <em>ACPL Systems</em>
-                <span class="exprole__date">Jun 2019 — Mar 2020</span>
-              </span>
-            </button>
+        <div class="skill-cat glass reveal" data-delay="80">
+          <h3 class="skill-cat__title"><span class="skill-cat__ico">◭</span> Analytics</h3>
+          <div class="tags">
+            <span>Statistical Problem-Solving</span><span>Hypothesis Testing</span>
+            <span>Root Cause Analysis</span><span>Experimental Design</span>
+            <span>Regression</span><span>Time-Series Forecasting</span>
+            <span>Predictive Modelling</span><span>Classification</span>
+            <span>Segmentation</span><span>Clustering</span>
           </div>
-
-          <div class="exp__detail" id="expDetail">
-            <!-- R1 -->
-            <article class="expcard is-active" data-role="r1">
-              <div class="expcard__head">
-                <div>
-                  <h3>Senior Data Associate</h3>
-                  <p class="expcard__org">Indus Valley Partners · Noida</p>
-                </div>
-                <span class="expcard__date">Apr 2025 — Present</span>
-              </div>
-              <div class="expcard__tags"><span>SQL</span><span>Python</span><span>EDM</span><span>AI Pilots</span><span>ESG</span><span>Leadership</span></div>
-              <ul class="bullets">
-                <li><b>Data Consulting &amp; Automation</b> — <i>+15% operational efficiency</i> and <i>200+ man-hours saved / year</i> by orchestrating data-driven consulting for global hedge funds and automating end-to-end reporting pipelines.</li>
-                <li><b>Experiment Design &amp; Validation</b> — validated a new AI-powered analytics solution before company-wide rollout by piloting the Portfolio Monitoring chatbot and aligning NY-based stakeholders with the product team.</li>
-                <li><b>Validation Automation</b> — cut manual testing effort to <i>10% of prior levels</i> via automated alert monitoring and targeted error resolution.</li>
-                <li><b>ESG Strategy</b> — pioneered an ESG Policy Trend Analysis framework, turning regulatory complexity into pitch-ready insights.</li>
-                <li><b>Team Leadership</b> — led a <i>6-member</i> analyst team across concurrent global mandates, lifting delivery accuracy by <i>15%</i>.</li>
-              </ul>
-            </article>
-            <!-- R2 -->
-            <article class="expcard" data-role="r2">
-              <div class="expcard__head">
-                <div>
-                  <h3>Data Associate</h3>
-                  <p class="expcard__org">Indus Valley Partners · Noida</p>
-                </div>
-                <span class="expcard__date">Oct 2022 — Mar 2025</span>
-              </div>
-              <p class="expcard__note">★ Promoted to Senior Data Associate after 2.5 years — 6 Data Associates reporting in.</p>
-              <div class="expcard__tags"><span>MDM</span><span>Data Governance</span><span>Power BI</span><span>Predictive Modelling</span><span>BRD/FRD/TOM</span></div>
-              <ul class="bullets">
-                <li><b>MDM Implementation (Project Owner)</b> — delivered IVP's Enterprise Data Dictionary with metadata management, taxonomy modelling, data lineage &amp; validation standards — <i>production bugs cut 54% → 25%</i>.</li>
-                <li><b>Data Integration &amp; Architecture</b> — built scalable governance frameworks across financial, portfolio, asset &amp; client domains; an audit-ready standard adopted across the implementation team.</li>
-                <li><b>Portfolio Analytics</b> — insights for <i>$87B+ AUM</i> via data mining &amp; predictive modelling, enabling C-suite decisions.</li>
-                <li><b>BI &amp; Reporting</b> — governed Power BI dashboards for <i>10+ hedge-fund clients</i>, reducing manual effort 15%.</li>
-                <li><b>Business Analysis</b> — authored BRDs, FRDs &amp; Target Operating Models for multi-million-dollar initiatives.</li>
-              </ul>
-            </article>
-            <!-- R3 -->
-            <article class="expcard" data-role="r3">
-              <div class="expcard__head">
-                <div>
-                  <h3>Business Manager</h3>
-                  <p class="expcard__org">ETEHAS · Gurugram</p>
-                </div>
-                <span class="expcard__date">Nov 2020 — May 2022</span>
-              </div>
-              <div class="expcard__tags"><span>Operations</span><span>Go-to-Market</span><span>Market Research</span><span>B2B</span></div>
-              <ul class="bullets">
-                <li><b>Entrepreneurial Leadership</b> — ran end-to-end operations in a high-growth startup; pivoted through COVID to drive a <i>+22% increase in sales</i>.</li>
-                <li><b>Proactive Problem-Solving</b> — owned the full lifecycle of retail pop-up stores, from location scouting to lead generation.</li>
-                <li><b>Market Research</b> — analysed customer segments &amp; manufacturing workflows to optimise supply chains and support B2B deals.</li>
-              </ul>
-            </article>
-            <!-- R4 -->
-            <article class="expcard" data-role="r4">
-              <div class="expcard__head">
-                <div>
-                  <h3>Business Development Executive</h3>
-                  <p class="expcard__org">ACPL Systems Pvt. Ltd. · Gurugram</p>
-                </div>
-                <span class="expcard__date">Jun 2019 — Mar 2020</span>
-              </div>
-              <div class="expcard__tags"><span>CRM</span><span>Sales Funnel</span><span>Outreach</span></div>
-              <ul class="bullets">
-                <li>Generated leads &amp; expanded customer interest by <i>10%</i> through targeted outreach.</li>
-                <li>Managed accounts end-to-end across <i>17 client relationships</i>, owning the full CRM cycle.</li>
-                <li>Engaged IT leaders for panels &amp; webinars, growing audience reach <i>3×</i>.</li>
-              </ul>
-            </article>
+        </div>
+        <div class="skill-cat glass reveal" data-delay="160">
+          <h3 class="skill-cat__title"><span class="skill-cat__ico">◰</span> Business</h3>
+          <div class="tags">
+            <span>BRD / FRD / TOM</span><span>Requirement Gathering</span>
+            <span>Stakeholder Management</span><span>Client Engagement</span>
+            <span>Process Mapping</span><span>Gap Analysis</span>
+            <span>UAT Coordination</span><span>Change Management</span>
+            <span>Product Roadmap (MVP)</span>
+          </div>
+        </div>
+        <div class="skill-cat glass reveal" data-delay="240">
+          <h3 class="skill-cat__title"><span class="skill-cat__ico">◱</span> Leadership</h3>
+          <div class="tags">
+            <span>Team Management</span><span>Cross-team Collaboration</span>
+            <span>Agile / Scrum</span><span>Project Planning</span><span>Delivery</span>
+          </div>
+        </div>
+        <div class="skill-cat glass reveal" data-delay="320">
+          <h3 class="skill-cat__title"><span class="skill-cat__ico">◲</span> Domain</h3>
+          <div class="tags">
+            <span>Alternative Asset Management</span><span>Hedge Funds</span>
+            <span>ESG (SFDR / SASB)</span><span>FinTech</span>
+            <span>Regulatory Reporting</span><span>AI Product Strategy</span>
+          </div>
+        </div>
+        <div class="skill-cat glass reveal" data-delay="400">
+          <h3 class="skill-cat__title"><span class="skill-cat__ico">◳</span> Communication</h3>
+          <div class="tags">
+            <span>Executive Reporting</span><span>Data Storytelling</span>
+            <span>Cross-functional Collaboration</span><span>Presentation Skills</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============================================================= IMPACT -->
-    <section class="view" id="impact" data-ix="03" data-name="Impact">
-      <div class="vwrap">
-        <header class="vhead">
-          <h2 class="vhead__title">Impact, in numbers</h2>
-          <p class="vhead__sub">Every line on a résumé should move a metric. Here's the data story.</p>
-        </header>
-
-        <div class="tiles">
-          <div class="tile"><span class="tile__n"><span data-count="87" data-suffix="B+">0</span></span><span class="tile__l">USD AUM analysed</span></div>
-          <div class="tile"><span class="tile__n"><span data-count="200" data-suffix="+">0</span></span><span class="tile__l">Man-hours saved / yr</span></div>
-          <div class="tile"><span class="tile__n"><span data-count="10" data-suffix="+">0</span></span><span class="tile__l">Hedge-fund clients</span></div>
-          <div class="tile"><span class="tile__n"><span data-count="6">0</span></span><span class="tile__l">Analysts led</span></div>
-          <div class="tile"><span class="tile__n"><span data-count="5">0</span></span><span class="tile__l">Global clients</span></div>
-          <div class="tile"><span class="tile__n"><span data-count="3" data-suffix="×">0</span></span><span class="tile__l">Audience reach</span></div>
-        </div>
-
-        <div class="impact-grid">
-          <article class="card chart-card">
-            <h3 class="card__kicker">// Measured business impact</h3>
-            <div class="bars">
-              <div class="bar"><div class="bar__top"><span>Manual testing reduced</span><b>90%</b></div><div class="bar__track"><div class="bar__fill" style="--val:90%"></div></div></div>
-              <div class="bar"><div class="bar__top"><span>Sales growth · ETEHAS</span><b>+22%</b></div><div class="bar__track"><div class="bar__fill" style="--val:22%"></div></div></div>
-              <div class="bar"><div class="bar__top"><span>Operational efficiency</span><b>+15%</b></div><div class="bar__track"><div class="bar__fill" style="--val:15%"></div></div></div>
-              <div class="bar"><div class="bar__top"><span>Delivery accuracy</span><b>+15%</b></div><div class="bar__track"><div class="bar__fill" style="--val:15%"></div></div></div>
-              <div class="bar"><div class="bar__top"><span>Customer interest · ACPL</span><b>+10%</b></div><div class="bar__track"><div class="bar__fill" style="--val:10%"></div></div></div>
-            </div>
-          </article>
-
-          <article class="card chart-card">
-            <h3 class="card__kicker">// Production quality — bug rate</h3>
-            <div class="beforeafter">
-              <div class="ba">
-                <div class="ba__bar ba__bar--bad"><div class="ba__fill" style="--val:54%"></div></div>
-                <span class="ba__n">54%</span><span class="ba__l">Before</span>
-              </div>
-              <svg class="ba__arrow" viewBox="0 0 24 24"><path d="M5 12h12l-4-4m4 4-4 4"/></svg>
-              <div class="ba">
-                <div class="ba__bar ba__bar--good"><div class="ba__fill" style="--val:25%"></div></div>
-                <span class="ba__n">25%</span><span class="ba__l">After (MDM)</span>
-              </div>
-            </div>
-            <p class="chart-foot">Owned IVP's Enterprise Data Dictionary end-to-end — a <b>29-point</b> drop in production bugs and a step-change in data trust.</p>
-          </article>
-
-          <article class="card rings-card">
-            <h3 class="card__kicker">// Signature outcomes</h3>
-            <div class="rings">
-              <div class="ring" style="--p:15">
-                <svg viewBox="0 0 120 120"><circle class="ring__bg" cx="60" cy="60" r="52"/><circle class="ring__val" cx="60" cy="60" r="52"/></svg>
-                <span class="ring__c"><b>+15%</b><em>Efficiency</em></span>
-              </div>
-              <div class="ring" style="--p:90">
-                <svg viewBox="0 0 120 120"><circle class="ring__bg" cx="60" cy="60" r="52"/><circle class="ring__val" cx="60" cy="60" r="52"/></svg>
-                <span class="ring__c"><b>90%</b><em>Less testing</em></span>
-              </div>
-              <div class="ring" style="--p:22">
-                <svg viewBox="0 0 120 120"><circle class="ring__bg" cx="60" cy="60" r="52"/><circle class="ring__val" cx="60" cy="60" r="52"/></svg>
-                <span class="ring__c"><b>+22%</b><em>Sales</em></span>
-              </div>
-            </div>
-          </article>
-        </div>
+    <!-- EDUCATION -->
+    <section id="education" class="section">
+      <div class="section__head reveal">
+        <span class="section__index">04</span>
+        <h2 class="section__title">Education</h2>
+      </div>
+      <div class="edu-grid">
+        <article class="edu-card glass reveal">
+          <div class="edu-card__badge">MBA</div>
+          <h3>Blended MBA — Business Analytics &amp; AI</h3>
+          <p class="edu-card__org">Indian Institute of Management, Ahmedabad (IIM-A)</p>
+          <p class="edu-card__meta">Mar 2025 — Ongoing</p>
+        </article>
+        <article class="edu-card glass reveal" data-delay="120">
+          <div class="edu-card__badge">B.Tech</div>
+          <h3>Bachelor of Technology</h3>
+          <p class="edu-card__org">Amity University, Noida</p>
+          <p class="edu-card__meta">2015 — 2019 · 7.56 CGPA</p>
+        </article>
       </div>
     </section>
 
-    <!-- ============================================================= SKILLS -->
-    <section class="view" id="skills" data-ix="04" data-name="Skills">
-      <div class="vwrap">
-        <header class="vhead">
-          <h2 class="vhead__title">Skills &amp; toolkit</h2>
-          <p class="vhead__sub"><b>Filter</b> by discipline — or scan the core stack with proficiency at a glance.</p>
-        </header>
-
-        <div class="core">
-          <div class="core__item"><div class="core__top"><span>SQL · SSMS · BigQuery</span><b>Expert</b></div><div class="meter"><i style="--val:95%"></i></div></div>
-          <div class="core__item"><div class="core__top"><span>Power BI</span><b>Expert</b></div><div class="meter"><i style="--val:92%"></i></div></div>
-          <div class="core__item"><div class="core__top"><span>Python · Pandas · scikit-learn</span><b>Advanced</b></div><div class="meter"><i style="--val:85%"></i></div></div>
-          <div class="core__item"><div class="core__top"><span>Data Governance &amp; MDM</span><b>Advanced</b></div><div class="meter"><i style="--val:90%"></i></div></div>
-          <div class="core__item"><div class="core__top"><span>Excel &amp; Modelling</span><b>Expert</b></div><div class="meter"><i style="--val:93%"></i></div></div>
+    <!-- CONTACT -->
+    <section id="contact" class="section section--contact">
+      <div class="contact glass reveal">
+        <span class="section__index">05</span>
+        <h2 class="contact__title">Let's build something with data.</h2>
+        <p class="contact__sub">
+          Open to data analytics, consulting and product roles. The fastest way to
+          reach me is LinkedIn — tap below and it opens in a new tab.
+        </p>
+        <div class="contact__actions">
+          <a href="https://www.linkedin.com/in/saumya-singh-0604/" target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">
+            <svg viewBox="0 0 24 24" class="ico"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.74H5.67v8.6h2.67zM7 8.57a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zM18.34 18.34v-4.71c0-2.52-1.35-3.69-3.14-3.69a2.71 2.71 0 0 0-2.46 1.35h-.04V9.74h-2.56v8.6h2.67v-4.25c0-1.12.21-2.2 1.6-2.2 1.37 0 1.39 1.28 1.39 2.27v4.18h2.68z"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://github.com/data-with-saumya" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--lg">
+            <svg viewBox="0 0 24 24" class="ico"><path d="M12 2A10 10 0 0 0 8.84 21.5c.5.08.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.46-1.11-1.46-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.16.57.67.48A10 10 0 0 0 12 2z"/></svg>
+            GitHub
+          </a>
+          <a href="mailto:aba25saumya@iima.ac.in" class="btn btn--ghost btn--lg">
+            <svg viewBox="0 0 24 24" class="ico"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 7L4.5 6.5h15L12 11zm0 2.2L4 8.2V18h16V8.2l-8 5z"/></svg>
+            Email
+          </a>
+          <a href="tel:+919650514072" class="btn btn--ghost btn--lg">
+            <svg viewBox="0 0 24 24" class="ico"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1l-2.22 2.2z"/></svg>
+            Call
+          </a>
         </div>
-
-        <div class="filters" id="filters" role="tablist" aria-label="Skill filters">
-          <button class="filt is-active" data-cat="all">All</button>
-          <button class="filt" data-cat="technical">Technical</button>
-          <button class="filt" data-cat="analytics">Analytics</button>
-          <button class="filt" data-cat="business">Business</button>
-          <button class="filt" data-cat="leadership">Leadership</button>
-          <button class="filt" data-cat="domain">Domain</button>
-          <button class="filt" data-cat="comm">Communication</button>
-        </div>
-
-        <div class="matrix" id="matrix">
-          <!-- technical -->
-          <span class="sk" data-cat="technical">Advanced SQL</span><span class="sk" data-cat="technical">SSMS</span><span class="sk" data-cat="technical">Google BigQuery</span><span class="sk" data-cat="technical">Python</span><span class="sk" data-cat="technical">Pandas</span><span class="sk" data-cat="technical">NumPy</span><span class="sk" data-cat="technical">scikit-learn</span><span class="sk" data-cat="technical">Power BI</span><span class="sk" data-cat="technical">Excel</span><span class="sk" data-cat="technical">Data Mining</span><span class="sk" data-cat="technical">ETL</span><span class="sk" data-cat="technical">Data Pipelines</span><span class="sk" data-cat="technical">Data Governance</span><span class="sk" data-cat="technical">MDM</span><span class="sk" data-cat="technical">monday.com</span><span class="sk" data-cat="technical">ClickUp</span>
-          <!-- analytics -->
-          <span class="sk" data-cat="analytics">Statistical Problem-Solving</span><span class="sk" data-cat="analytics">Hypothesis Testing</span><span class="sk" data-cat="analytics">Root Cause Analysis</span><span class="sk" data-cat="analytics">Experimental Design</span><span class="sk" data-cat="analytics">Regression</span><span class="sk" data-cat="analytics">Time-Series Forecasting</span><span class="sk" data-cat="analytics">Predictive Modelling</span><span class="sk" data-cat="analytics">Classification</span><span class="sk" data-cat="analytics">Segmentation</span><span class="sk" data-cat="analytics">Clustering</span>
-          <!-- business -->
-          <span class="sk" data-cat="business">BRD / FRD / TOM</span><span class="sk" data-cat="business">Requirement Gathering</span><span class="sk" data-cat="business">Stakeholder Management</span><span class="sk" data-cat="business">Client Engagement</span><span class="sk" data-cat="business">Process Mapping</span><span class="sk" data-cat="business">Gap Analysis</span><span class="sk" data-cat="business">UAT Coordination</span><span class="sk" data-cat="business">Change Management</span><span class="sk" data-cat="business">Product Roadmap (MVP)</span>
-          <!-- leadership -->
-          <span class="sk" data-cat="leadership">Team Management</span><span class="sk" data-cat="leadership">Cross-team Collaboration</span><span class="sk" data-cat="leadership">Agile / Scrum</span><span class="sk" data-cat="leadership">Project Planning</span><span class="sk" data-cat="leadership">Delivery</span>
-          <!-- domain -->
-          <span class="sk" data-cat="domain">Alternative Asset Management</span><span class="sk" data-cat="domain">Hedge Funds</span><span class="sk" data-cat="domain">ESG (SFDR / SASB)</span><span class="sk" data-cat="domain">FinTech</span><span class="sk" data-cat="domain">Regulatory Reporting</span><span class="sk" data-cat="domain">AI Product Strategy</span>
-          <!-- comm -->
-          <span class="sk" data-cat="comm">Executive Reporting</span><span class="sk" data-cat="comm">Data Storytelling</span><span class="sk" data-cat="comm">Cross-functional Collaboration</span><span class="sk" data-cat="comm">Presentation Skills</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================= EDUCATION -->
-    <section class="view" id="education" data-ix="05" data-name="Education">
-      <div class="vwrap">
-        <header class="vhead">
-          <h2 class="vhead__title">Education &amp; journey</h2>
-          <p class="vhead__sub">Engineering foundations, business management in the field, now an MBA in Analytics &amp; AI.</p>
-        </header>
-
-        <div class="edu">
-          <article class="card edu__card">
-            <span class="edu__badge">MBA</span>
-            <h3>Blended MBA — Business Analytics &amp; AI</h3>
-            <p class="edu__org">Indian Institute of Management, Ahmedabad (IIM-A)</p>
-            <p class="edu__meta">Mar 2025 — Ongoing</p>
-          </article>
-          <article class="card edu__card">
-            <span class="edu__badge">B.Tech</span>
-            <h3>Bachelor of Technology</h3>
-            <p class="edu__org">Amity University, Noida</p>
-            <p class="edu__meta">2015 — 2019 · 7.56 CGPA</p>
-          </article>
-        </div>
-
-        <h3 class="card__kicker journey__kick">// Career progression</h3>
-        <ol class="journey">
-          <li class="journey__step"><span class="journey__yr">2019</span><span class="journey__role">Business Development Exec.</span><span class="journey__org">ACPL Systems</span></li>
-          <li class="journey__step"><span class="journey__yr">2020</span><span class="journey__role">Business Manager</span><span class="journey__org">ETEHAS</span></li>
-          <li class="journey__step"><span class="journey__yr">2022</span><span class="journey__role">Data Associate</span><span class="journey__org">Indus Valley Partners</span></li>
-          <li class="journey__step is-now"><span class="journey__yr">2025</span><span class="journey__role">Senior Data Associate</span><span class="journey__org">Indus Valley Partners</span></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ============================================================= CONTACT -->
-    <section class="view" id="contact" data-ix="06" data-name="Contact">
-      <div class="vwrap vwrap--center">
-        <div class="contact">
-          <h2 class="contact__title">Let's build something <span class="grad">with data.</span></h2>
-          <p class="contact__sub">Open to data analytics, consulting &amp; product roles. The fastest way to reach me is LinkedIn — it opens in a new tab.</p>
-          <div class="contact__btns">
-            <a class="contact__btn" href="https://www.linkedin.com/in/saumya-singh-0604/" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" class="ic"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 18.34V9.74H5.67v8.6h2.67zM7 8.57a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zM18.34 18.34v-4.71c0-2.52-1.35-3.69-3.14-3.69a2.71 2.71 0 0 0-2.46 1.35h-.04V9.74h-2.56v8.6h2.67v-4.25c0-1.12.21-2.2 1.6-2.2 1.37 0 1.39 1.28 1.39 2.27v4.18h2.68z"/></svg>
-              <span><strong>LinkedIn</strong><em>in/saumya-singh-0604</em></span>
-            </a>
-            <a class="contact__btn" href="https://github.com/data-with-saumya" target="_blank" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" class="ic"><path d="M12 2A10 10 0 0 0 8.84 21.5c.5.08.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.46-1.11-1.46-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.16.57.67.48A10 10 0 0 0 12 2z"/></svg>
-              <span><strong>GitHub</strong><em>data-with-saumya</em></span>
-            </a>
-            <a class="contact__btn" href="mailto:aba25saumya@iima.ac.in">
-              <svg viewBox="0 0 24 24" class="ic"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 7L4.5 6.5h15L12 11zm0 2.2L4 8.2V18h16V8.2l-8 5z"/></svg>
-              <span><strong>Email</strong><em>aba25saumya@iima.ac.in</em></span>
-            </a>
-            <a class="contact__btn" href="assets/Saumya_Singh_Resume.pdf" download>
-              <svg viewBox="0 0 24 24" class="ic"><path d="M12 3v10.5l3.3-3.3 1.4 1.4-5.7 5.7-5.7-5.7 1.4-1.4 3.3 3.3V3h2zM5 19h14v2H5z"/></svg>
-              <span><strong>Download CV</strong><em>PDF · one click</em></span>
-            </a>
-          </div>
-          <p class="contact__loc">📍 Delhi-NCR, India</p>
-        </div>
-        <footer class="foot">
-          <span>Designed &amp; built for <b>Saumya Singh</b></span>
-          <span class="foot__dot">·</span>
-          <span>Data Storyteller</span>
-        </footer>
+        <p class="contact__loc">📍 Delhi-NCR, India · +91 96505 14072</p>
       </div>
     </section>
   </main>
 
-  <!-- ============ COMMAND PALETTE ============ -->
-  <div class="palette" id="palette" aria-hidden="true">
-    <div class="palette__box" role="dialog" aria-modal="true" aria-label="Command palette">
-      <div class="palette__input">
-        <span class="palette__prompt">›</span>
-        <input id="paletteInput" type="text" placeholder="Jump to a page or section…" autocomplete="off" spellcheck="false" />
-        <kbd>esc</kbd>
-      </div>
-      <ul class="palette__list" id="paletteList"></ul>
-    </div>
-  </div>
+  <footer class="footer">
+    <p>Designed &amp; built for <strong>Saumya Singh</strong> · Senior Data Associate</p>
+    <p class="footer__small">Crafted with data-driven attention to detail.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
