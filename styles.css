@@ -308,6 +308,40 @@ b,strong{color:var(--text);font-weight:600}
 .palette__opt.is-sel,.palette__opt:hover{background:var(--grad-soft);color:var(--text)}
 .palette__opt.is-sel .ix{color:var(--cyan)}
 
+/* ---------- justified paragraph alignment ---------- */
+.hero__lede,
+.vhead__sub,
+.about p,
+.about__lead,
+.tl-card p,
+.tl-card li,
+.tl-points li,
+.expcard p,
+.expcard li,
+.edu__card p,
+.contact__sub,
+.contact p,
+.card p,
+.view p,
+p.lede,
+p.lead,
+li {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+/* preserve left alignment for UI / headings / mono / short labels */
+.navitem, .navitem *,
+.btn, .filt, .sk, .chip, .kbd, kbd,
+h1, h2, h3, h4, h5, h6,
+.hero__title, .vhead__title, .core__top, .topbar__crumb,
+.brand, .brand *, .stat-card__label, .kpi__lbl,
+.tag, .badge, .meta, time, .edu__card__meta,
+.section__index, .navitem__ix, .navitem__ic, .navitem__tx {
+  text-align: left;
+  hyphens: manual;
+}
+
 /* ---------- responsive ---------- */
 @media (max-width:1024px){
   .impact-grid{grid-template-columns:1fr}
