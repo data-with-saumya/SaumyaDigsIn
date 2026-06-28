@@ -75,7 +75,7 @@ b,strong{color:var(--text);font-weight:600}
 .navitem.is-active{color:var(--text)}
 .navitem.is-active .navitem__ix{color:var(--cyan)}
 .navitem.is-active .navitem__ic{opacity:1;color:var(--cyan)}
-.navind{position:absolute;left:0;width:100%;height:42px;border-radius:var(--r1);z-index:0;
+.navind{position:absolute;top:0;left:0;width:100%;height:42px;border-radius:var(--r1);z-index:0;
   background:var(--grad-soft);border:1px solid var(--brd);opacity:0;
   transition:transform .42s cubic-bezier(.5,1.4,.4,1),opacity .3s}
 .navind.show{opacity:1}
