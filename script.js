@@ -11,9 +11,12 @@
     {id:"overview",  name:"Overview",   ix:"01", desc:"Intro & headline metrics"},
     {id:"experience",name:"Experience", ix:"02", desc:"Roles & achievements"},
     {id:"impact",    name:"Impact",     ix:"03", desc:"Metrics & data viz"},
-    {id:"skills",    name:"Skills",     ix:"04", desc:"Toolkit & filters"},
-    {id:"education", name:"Education",  ix:"05", desc:"Degrees & career path"},
-    {id:"contact",   name:"Contact",    ix:"06", desc:"LinkedIn, GitHub, email"}
+    {id:"projects",  name:"Projects",   ix:"04", desc:"SaumyaDigsIn investigations"},
+    {id:"project-trust-safety", name:"Projects · Trust & Safety", ix:"04", parent:"projects", desc:"Content moderation spike investigation"},
+    {id:"project-fraud-alert",  name:"Projects · Fraud Alert",    ix:"04", parent:"projects", desc:"This Was Me — PM investigation"},
+    {id:"skills",    name:"Skills",     ix:"05", desc:"Toolkit & filters"},
+    {id:"education", name:"Education",  ix:"06", desc:"Degrees & career path"},
+    {id:"contact",   name:"Contact",    ix:"07", desc:"LinkedIn, GitHub, email"}
   ];
 
   const stage   = $("#stage");
@@ -44,9 +47,12 @@
     current = page.id;
 
     $$(".view").forEach(v=> v.classList.toggle("is-shown", v.id===page.id));
-    navItems.forEach(n=> n.classList.toggle("is-active", n.dataset.view===page.id));
-    tbIx.textContent = page.ix;
-    tbName.textContent = page.name;
+    navItems.forEach(n=>{
+      const isActive = n.dataset.view===page.id || (page.parent && n.dataset.view===page.parent);
+      n.classList.toggle("is-active", isActive);
+    });
+    if(tbIx) tbIx.textContent = page.ix;
+    if(tbName) tbName.textContent = page.name;
     document.title = "Saumya Singh · " + page.name;
     if(push !== false && location.hash !== "#"+page.id) history.replaceState(null,"","#"+page.id);
 
